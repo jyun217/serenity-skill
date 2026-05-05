@@ -178,7 +178,7 @@ serenity-skill/
 
 ## Boundary
 
-This is an independent public-methodology project inspired by public Serenity / @aleabitoreddit research patterns. It supports research, ranking, and reasoning. It has zero broker access, zero wallet access, and zero trade execution.
+This is an independent public-methodology project inspired by public [Serenity / @aleabitoreddit](https://x.com/aleabitoreddit) research patterns. It supports research, ranking, and reasoning. It has zero broker access, zero wallet access, and zero trade execution.
 
 Company facts should come from filings, exchange documents, company announcements, transcripts, regulatory/project records, patents, standards, reputable media, and specialist analysis.
 
