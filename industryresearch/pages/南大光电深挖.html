@@ -1,0 +1,213 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>南大光电 (300346) 单公司深挖</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">化工新材料 · 电子特气 · 前驱体/MO源/光刻胶</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip">南大光电 300346</span></div>
+<h1>南大光电(300346)单公司深挖</h1>
+<blockquote>用 serenity-skill 方法的单公司挑战。研究日期:2026-06-24。 数据主要来自 cninfo 一手年报/公告 + 互动易 + Eastmoney 实时估值(强证据 [S])。仅为研究支持,非买卖建议。 背景:南大在本库的「工业气体」与「氮化镓(GaN)」两篇里都出现——它是"真上游卡点"那一类,且在当前电子特气熔涨中属于<strong>基本面真在兑现</strong>的少数。</blockquote>
+<hr>
+<h2>一句话判断</h2>
+<p>南大光电是<strong>基本面真在兑现、但估值已脱离基本面</strong>的典型:盈利是实的(归母 +18%、扣非 +31.5%、Q1'26 +30%、经营现金流 2.3 倍净利),不是中船特气那种空壳动量;<strong>但 ~532 亿市值 / ~153x PE(TTM) / PEG 5–9 已经定价了多年完美复合</strong>,而研发占比在降、Q1 收入只 +5.5%、公司自己还在公告里警告电子特气产能过剩。<strong>真护城河在 IC 前驱体,ArF 光刻胶是期权不是业绩,NF3 是它正在主动收缩的商品。</strong></p>
+<blockquote>用词纠正:南大在<strong>光刻胶(材料)</strong>,不在<strong>光刻机(设备)</strong>——两者差很远,它不碰光刻机。</blockquote>
+<hr>
+<h2>一、南大内部的卡点排序(哪层真稀缺)</h2>
+<ol><li><strong>先进前驱体(IC high-k/ALD/CVD)— 真正的差异化</strong>:FY2025 收入 7.14 亿(+23.5%)、<strong>毛利 50.88%(全公司最高且在升)</strong>、产能利用率 73%,寡头层、02 专项血统,已导入国内领先晶圆厂量产制程。<strong>最接近"控制稀缺层"的地方。</strong></li><li><strong>MO 源(TMGa/TMIn,GaN-MOCVD 用)— 全球级技术护城河,但平/在转型</strong>:自称"全球主要 MO 源制造商之一"、6N、全系列出口欧美;但 LED 端价格侵蚀,价值在往化合物半导体/VCSEL 迁移。技术差异化,非增长差异化(全球份额数字未披露,medium)。</li><li><strong>掺杂气(磷烷/砷烷 6N+)— 国内地位扎实</strong>,离子注入安全源获认可;毛利埋在被价格战拖累的"特气"大桶里,单独毛利/出口未披露。</li><li><strong>ArF 光刻胶(193nm)— 战略壁垒最高、但财务上还很小</strong>:2025 年 <strong>3 款 ArF(干式+浸没式)通过客户验证、拿到订单、销售突破 2000 万</strong>,真实进展;但 <strong>&lt;1% 营收</strong>,老的光刻胶募投项目结项、未达预期。<strong>是期权,不是业绩</strong>;验证的具体晶圆厂未披露。</li><li><strong>NF3 含氟特气 — 商品,且在主动收缩</strong>:乌兰察布 7200 吨项目<strong>只建到 5400 吨就结项</strong>(明说 NF3 内卷价格战),六氟丁二烯(C4F6)项目<strong>终止并把资产卖了 6903 万</strong>,转向 5.5N 高纯 + 绿色能源低成本基地。<strong>公司自己警告"大量资本涌入电子特气、竞争加剧"——而板块正在熔涨,很反讽。</strong></li></ol>
+<p><strong>结论</strong>:真高壁垒卡点是 <strong>IC 前驱体(MO 源做技术支撑)</strong>;ArF 是最高战略壁垒但尚未变现;NF3 是它在缩的商品拖累。</p>
+<hr>
+<h2>二、财务质量(真,但有几处要划线)</h2>
+<ul><li><strong>盈利真</strong>:FY2025 营收 25.85 亿、归母 3.20 亿(+18%)、扣非 2.54 亿(+31.5%,比表观更干净)、<strong>经营现金流 7.33 亿(2.3 倍净利)</strong>;Q1'26 归母 +30%(但收入仅 +5.5%,靠毛利/结构,非放量)。</li><li><strong>🚩 Q4'25 归母塌到 1897 万</strong>——被 <strong>1.69 亿减值</strong>(信用+商誉)打掉;<strong>淄博/原山东飞源气体收购的商誉已减值 73%</strong>(收来的 NF3 资产结构性不行)。</li><li><strong>🚩 少数股东吃掉约 21% 利润</strong>:合并净利 4.04 亿、归母仅 3.20 亿(历史 21–27%;飞源/全椒/乌兰察布/宁波等子公司)。好消息是 2025 在回购少数股权(全椒已 100% 控股),拖累在缓解,但要付现金(3.74 亿长期应付,含大基金二期对赌)。</li><li><strong>🚩 分红 ~99% 净利</strong>:在还有募投资本开支、有息负债和大基金二期付款义务下几乎全分掉——靠现金流撑得住,但<strong>未来扩产大概率要再融资</strong>;股东友好到反常。</li><li><strong>🚩 研发占比 8.02%(从 2023 的 11.4% 一路降)</strong>,绝对额还略减——对一个按"科技复合器"估值的公司是隐患。</li><li>政府补助约占归母 32%;应收/存货增速略快于收入(温和)。</li></ul>
+<hr>
+<h2>三、估值(已脱离基本面)</h2>
+<p>价 ~77 元、市值 ~532 亿、<strong>PE(TTM)~153x、PB ~15x、PS ~20x、PEG ≈ 5–9</strong>(即便按 Q1 的 +30% 跑)。它和华特/中船特气同处投机估值区,差别是<strong>南大盈利在真增长</strong>;但倍数已透支多年。</p>
+<hr>
+<h2>四、治理(混合)</h2>
+<ul><li><strong>无控股股东、无实控人</strong>(高度分散,最大股东沈洁 ~11%)——缺锚定股东,有举牌/控制权模糊风险。</li><li><strong>大基金二期不在前十大</strong>(它是子公司层面的 2.365 亿长期应付/对赌,不是母公司股权);南京大学资本运营 2.45%。</li><li><strong>🚩 内部人在高位减持</strong>:最大股东<strong>沈洁 2026-05 减持 493 万股、计划开到 7/6</strong>;董事<strong>王陆平在 48 元卖</strong>(现 77 元)。最懂公司的人在这个价位持续套现。</li><li>无质押(干净);<strong>无问询函、无异动公告</strong>(不像中船特气停牌)——更温和、基本面支撑的上涨。</li></ul>
+<hr>
+<h2>五、反方 / 主要风险</h2>
+<ol><li><strong>估值</strong>:153x PE / PEG 5–9,定价完美复合;研发在降、Q1 收入仅 +5.5%、公司自警特气过剩——任何减速都杀估值。</li><li><strong>少数股东漏损</strong>:归母显著低于合并利润;买回少数股权要花现金。</li><li><strong>分红 vs 资本开支</strong>:99% 分红与下一轮扩产矛盾,未来要再融资。</li><li><strong>Q4 减值 + 飞源商誉 73% 已减</strong>:收来的 NF3 资产是结构性拖累。</li><li><strong>内部人减持</strong>:最大股东+董事高位套现。</li><li><strong>ArF 兑现节奏</strong>:战略最性感但 &lt;1% 营收,扩产周期约一年,放量未证。</li></ol>
+<hr>
+<h2>六、下一步查什么</h2>
+<ol><li>拉 <strong>ArF 光刻胶客户验证临时公告</strong>,确认验证节点(干式/浸没、对应制程)与客户——把"期权"变"业绩"的关键。</li><li>读<strong>乌兰察布 NF3 结项公告 + C4F6 出售公告</strong>,确认收缩幅度与资本再配置。</li><li>跟 <strong>IC 前驱体放量</strong>(73% 利用率→扩产)、江苏南大光电材料(前驱体国产化)导入里程碑——真护城河的增长验证。</li><li>盯<strong>少数股权回购进度</strong>(归母占比能否上修)、Q2'26 减值是否还有尾巴。</li><li>盯<strong>沈洁减持(开到 7/6)</strong>执行与后续是否有新计划。</li></ol>
+<hr>
+<h2>七、收尾:宽平台 vs 单点卡点</h2>
+<p>南大同时卡在<strong>半导体前驱体 + GaN-MOCVD 的 MO 源 + 掺杂气 + ArF 光刻胶</strong>几个口子上,所以它在本库"工业气体""GaN"两篇里都出现。但要把它看清,关键是<strong>它在每个环节的位置不一样</strong>:</p>
+<div class="table-wrap"><table><thead><tr><th>环节</th><th>南大的位置</th><th>是不是"顶端"?</th></tr></thead><tbody><tr><td>掺杂气(磷烷/砷烷 6N+)</td><td>国内龙头</td><td>是这个<strong>小众</strong>环节的国产顶尖,但盘子小</td></tr><tr><td>MO 源(GaN MOCVD 用)</td><td>"全球主要制造商之一"</td><td><strong>全球技术级顶尖</strong>,但市场小且 LED 在萎缩</td></tr><tr><td>IC 前驱体(high-k/ALD/CVD)</td><td>国内主要供应商之一</td><td><strong>国内领先</strong>,但全球顶端是 Merck/Versum、Air Liquide、ADEKA</td></tr><tr><td>ArF 光刻胶(193nm)</td><td>刚验证、&lt;1% 营收</td><td><strong>不是顶端</strong>,日企(信越/JSR/TOK/住友)垄断里的追赶者</td></tr><tr><td>NF3 含氟特气</td><td>有规模、在缩</td><td>商品、价格战,不是顶端位</td></tr></tbody></table></div>
+<p><strong>准确的定性:南大是"在小众环节里顶尖、在大蛋糕里追赶"——而且每个环节的全球顶端都在日欧美在位者手里,它哪个环节都是国产替代的"挑战者/宽平台",不是某个独大的卡点。</strong></p>
+<ul><li>它<strong>不是"master of none"</strong>:掺杂气国内第一、MO 源全球级、IC 前驱体国内领先,都是真领先位置;</li><li><strong>但</strong>:① 它真正第一的(掺杂气、MO 源)是<strong>小盘子或在萎缩</strong>;② 真正高价值高壁垒的(ArF/EUV 光刻胶、最先进前驱体)它还是<strong>追赶者</strong>;③ 放到全球,<strong>每个品类的顶端都不在它手里</strong>。</li></ul>
+<p><strong>这正好解释它在本库为什么不带 🎯(不是任何一条产业链的头号卡点)</strong>:工业气体的头号卡点是广钢(氦气,无法本土化),色谱/生命科学是纳微,GaN 是英诺赛科。<strong>南大是"宽平台、第二梯队":多点开花、国产替代逻辑扎实,但没有一个业务是城墙级的独大卡点,最高价值的那个(ArF)还很小。</strong></p>
+<p><strong>投资含义</strong>:它的多主题暴露<strong>是分散的机会、不是叠加的护城河</strong>。看它的关键是两个"往顶端走"的兑现——<strong>前驱体能否从"国内领先"做到"卡住先进制程"、ArF 能否从 &lt;1% 放量</strong>;在那之前,它就是"哪条链都在、哪条链都还没到顶端"。广度是它的优点(多发子弹),也是它拿不到 🎯 的原因(每个点都不是那条链最稀缺的顶端)。</p>
+<hr>
+<h2>主要信源</h2>
+<p><strong>强证据</strong>:cninfo FY2025 年报(2026-04-10/1225087469)、Q1'26 季报、募投/减持/资产出售公告;互动易(ArF 销售 &gt;2000 万、供货中;PH3/AsH3 vs NF3/SF6 分类);Eastmoney/新浪行情(2026-06-24)。</p>
+<p><strong>需核实</strong>:具体晶圆厂客户名(年报全匿名)、MO 源全球精确份额、ArF 验证节点、同业 PE 对照、大基金二期在子公司的精确股权/对赌条款。</p>
+<hr>
+<p>*这是研究判断和证据链,不是买卖建议——尤其当前板块熔涨,估值风险第一位。决策与风险由使用者自行把握。*</p>
+<div class="related"><h3>相关分析</h3><a href="工业气体产业链深挖.html">工业气体产业链深挖 →</a></div>
+</article>
+</body></html>

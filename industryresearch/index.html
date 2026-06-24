@@ -1,0 +1,340 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>产业链卡点研究库</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<header class="site"><div class="wrap">
+<h1>产业链卡点研究库</h1>
+<p class="sub">Serenity 方法 · 源头证据 · 卡点优先 — 研究支持，非买卖建议</p>
+<div class="meta-row"><span><b>10</b> 篇分析</span><span>覆盖 <b>3</b> 个行业</span><span>最近更新 <b>2026-06-24</b></span></div>
+</div></header>
+<div class="toolbar"><div class="wrap">
+<input id="search" type="text" placeholder="搜索标题 / 标的 / 关键词…">
+<div class="filters"><span class="filt on" data-f="all">全部</span>
+<span class="filt" data-f="半导体">半导体</span>
+<span class="filt" data-f="医药生物">医药生物</span>
+<span class="filt" data-f="化工新材料">化工新材料</span>
+</div>
+<div class="viewnav"><a class="cur">按行业</a><a href="tickers.html">按标的反查 →</a></div>
+</div></div>
+<main class="wrap">
+<div class="signal-banner">
+<div class="lead">🎯 真卡点信号</div>
+<p class="desc">每有一条产业链把某标的列为<b class="lg-gold">头号卡点</b>，它就多一颗 🎯。<b class="lg-gold">1 颗 = 层内卡点</b>(单条产业链的头号卡点)；<b class="lg-gold">≥2 颗 = 多源指向</b>(多条相互独立的产业链共同把它列为头号卡点，最强信号)。</p>
+<div class="signal-list">
+<div class="signal-item"><span class="nm">🎯🎯 纳微科技</span><span class="hit">多源指向 · 生命科学上游试剂产业链深挖、色谱分离纯化产业链深挖</span><a href="pages/纳微科技深挖.html">查看 →</a></div>
+<div class="signal-item"><span class="nm">🎯 广钢气体</span><span class="hit">层内卡点 · 工业气体产业链深挖</span><a href="pages/工业气体产业链深挖.html">查看 →</a></div>
+<div class="signal-item"><span class="nm">🎯 英诺赛科</span><span class="hit">层内卡点 · 氮化镓 (GaN) 产业链深挖</span><a href="pages/氮化镓(GaN)产业链深挖.html">查看 →</a></div>
+<div class="signal-item"><span class="nm">🎯 键凯科技</span><span class="hit">层内卡点 · CRO 产业链深挖</span><a href="pages/键凯科技深挖.html">查看 →</a></div>
+</div></div>
+<section class="industry" data-ind="半导体">
+<div class="industry-head"><span class="dot 半导体"></span><h2>半导体</h2><span class="cnt">1 篇</span></div>
+<div class="type-label">产业链</div>
+<div class="grid">
+<article class="card" data-ind="半导体" data-hay="氮化镓 (GaN) 产业链深挖 第三代半导体 · GaN 真卡点是 8 吋硅基 GaN（中国罕见领跑）与金属镓（中国卡别人脖子），但最稀缺的两层 A 股都没好的纯标的；AI 电源对 GaN 的拉动真实但窄（GaN 赢低压末级，SiC 拿高压前端）。 英诺赛科 02577.HK 三安光电 600703 华润微 688396 中瓷电子 003031 中微公司 688012 半导体">
+<span class="badge 产业链">产业链</span>
+<h3>氮化镓 (GaN) 产业链深挖</h3>
+<p class="sub">第三代半导体 · GaN</p>
+<p class="summary">真卡点是 8 吋硅基 GaN（中国罕见领跑）与金属镓（中国卡别人脖子），但最稀缺的两层 A 股都没好的纯标的；AI 电源对 GaN 的拉动真实但窄（GaN 赢低压末级，SiC 拿高压前端）。</p>
+<div class="keypick">🎯 本链头号卡点：英诺赛科</div>
+<div class="chips"><span class="chip hot">英诺赛科 02577.HK</span><span class="chip">三安光电 600703</span><span class="chip">华润微 688396</span><span class="chip">中瓷电子 003031</span><span class="chip">中微公司 688012</span></div>
+<div class="foot"><span class="date">2026-06-23</span><a href="pages/氮化镓(GaN)产业链深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+</section>
+<section class="industry" data-ind="医药生物">
+<div class="industry-head"><span class="dot 医药生物"></span><h2>医药生物</h2><span class="cnt">6 篇</span></div>
+<div class="type-label">产业链</div>
+<div class="grid">
+<article class="card" data-ind="医药生物" data-hay="色谱分离纯化产业链深挖 生命科学上游 · 色谱纯化 汉邦是国产工业色谱设备龙头，但设备=一次性资本品（毛利 24-38%），同一 GLP-1 主题里护城河弱于按批复购的填料（纳微/赛分，毛利 69-82%）。 纳微科技 688690 赛分科技 688758 汉邦科技 688755 蓝晓科技 300487 东富龙 300171 医药生物">
+<span class="badge 产业链">产业链</span>
+<h3>色谱分离纯化产业链深挖</h3>
+<p class="sub">生命科学上游 · 色谱纯化</p>
+<p class="summary">汉邦是国产工业色谱设备龙头，但设备=一次性资本品（毛利 24-38%），同一 GLP-1 主题里护城河弱于按批复购的填料（纳微/赛分，毛利 69-82%）。</p>
+<div class="keypick">🎯 本链头号卡点：纳微科技</div>
+<div class="chips"><span class="chip hot">纳微科技 688690</span><span class="chip">赛分科技 688758</span><span class="chip">汉邦科技 688755</span><span class="chip">蓝晓科技 300487</span><span class="chip">东富龙 300171</span></div>
+<div class="foot"><span class="date">2026-06-24</span><a href="pages/色谱分离纯化产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="医药生物" data-hay="CRO 产业链深挖 CXO · CRO/CDMO 服务业没有制造业硬卡点，真正抗周期的是非人力稀缺要素：受监管材料（PEG）、生物资产（猴）、不可复制的全球一体化规模；多肽产能现紧但人人在扩，2027-28 或转过剩。 键凯科技 688356 凯莱英 002821 昭衍新药 603127 圣诺生物 688117 药明康德 603259 医药生物">
+<span class="badge 产业链">产业链</span>
+<h3>CRO 产业链深挖</h3>
+<p class="sub">CXO · CRO/CDMO</p>
+<p class="summary">服务业没有制造业硬卡点，真正抗周期的是非人力稀缺要素：受监管材料（PEG）、生物资产（猴）、不可复制的全球一体化规模；多肽产能现紧但人人在扩，2027-28 或转过剩。</p>
+<div class="keypick">🎯 本链头号卡点：键凯科技</div>
+<div class="chips"><span class="chip hot">键凯科技 688356</span><span class="chip">凯莱英 002821</span><span class="chip">昭衍新药 603127</span><span class="chip">圣诺生物 688117</span><span class="chip">药明康德 603259</span></div>
+<div class="foot"><span class="date">2026-06-23</span><a href="pages/CRO产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="医药生物" data-hay="生命科学上游试剂产业链深挖 生命科学上游 · 试剂/酶 诺唯赞不是 CRO，是上游“卖铲子”；它踩在最商品化层所以连亏三年，真卡点在层析填料/细胞培养基（按批消耗、GMP 锁定、70-82% 毛利）。 纳微科技 688690 奥浦迈 688293 百普赛斯 301080 诺唯赞 688105 义翘神州 301047 医药生物">
+<span class="badge 产业链">产业链</span>
+<h3>生命科学上游试剂产业链深挖</h3>
+<p class="sub">生命科学上游 · 试剂/酶</p>
+<p class="summary">诺唯赞不是 CRO，是上游“卖铲子”；它踩在最商品化层所以连亏三年，真卡点在层析填料/细胞培养基（按批消耗、GMP 锁定、70-82% 毛利）。</p>
+<div class="keypick">🎯 本链头号卡点：纳微科技</div>
+<div class="chips"><span class="chip hot">纳微科技 688690</span><span class="chip">奥浦迈 688293</span><span class="chip">百普赛斯 301080</span><span class="chip">诺唯赞 688105</span><span class="chip">义翘神州 301047</span></div>
+<div class="foot"><span class="date">2026-06-23</span><a href="pages/生命科学上游试剂产业链深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+<div class="type-label">单公司深挖</div>
+<div class="grid">
+<article class="card flagged" data-ind="医药生物" data-hay="纳微科技 (688690) 单公司深挖 — GLP-1/纯化卡点收口 生命科学上游 · 色谱填料 三个入口反复指向的真卡点本体；单分散微球（CV&lt;3%）+81.8% 填料毛利是真护城河，复苏真实；但估值极贵（TTM PE 约 98x）+ 治理瑕疵（控股股东收警示函、董事长股份冻结）。 纳微科技 688690 医药生物">
+<span class="badge 单公司深挖">单公司深挖</span>
+<h3>纳微科技 (688690) 单公司深挖 — GLP-1/纯化卡点收口</h3>
+<div class="pill-signal">🎯🎯 真卡点 · 多源指向</div>
+<p class="sub">生命科学上游 · 色谱填料</p>
+<p class="summary">三个入口反复指向的真卡点本体；单分散微球（CV&lt;3%）+81.8% 填料毛利是真护城河，复苏真实；但估值极贵（TTM PE 约 98x）+ 治理瑕疵（控股股东收警示函、董事长股份冻结）。</p>
+<div class="chips"><span class="chip hot">纳微科技 688690</span></div>
+<div class="foot"><span class="date">2026-06-24</span><a href="pages/纳微科技深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="医药生物" data-hay="凯莱英 (002821 / 06821.HK) 单公司深挖 CXO · 多肽 CDMO 走出 Paxlovid 订单悬崖但未回峰值盈利；多肽产能 45,000→69,000L、在手订单 13.85 亿美元、财务干净；核心风险是 74% 海外/69% 美欧的 BIOSECURE 结构暴露。 凯莱英 002821 凯莱英 06821.HK 医药生物">
+<span class="badge 单公司深挖">单公司深挖</span>
+<h3>凯莱英 (002821 / 06821.HK) 单公司深挖</h3>
+<p class="sub">CXO · 多肽 CDMO</p>
+<p class="summary">走出 Paxlovid 订单悬崖但未回峰值盈利；多肽产能 45,000→69,000L、在手订单 13.85 亿美元、财务干净；核心风险是 74% 海外/69% 美欧的 BIOSECURE 结构暴露。</p>
+<div class="chips"><span class="chip">凯莱英 002821</span><span class="chip">凯莱英 06821.HK</span></div>
+<div class="foot"><span class="date">2026-06-23</span><a href="pages/凯莱英深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card flagged" data-ind="医药生物" data-hay="键凯科技 (688356) 单公司深挖 CXO · 医用 PEG 材料 卖材料不是服务，12 个 FDA DMF 锁定、毛利曾 85%；但 2025 +40% 反弹靠单一海外客户（占 33%），GLP-1 多为结构性推断（仅豪森一个旧链接），约 71x PE 已先行。 键凯科技 688356 医药生物">
+<span class="badge 单公司深挖">单公司深挖</span>
+<h3>键凯科技 (688356) 单公司深挖</h3>
+<div class="pill-signal">🎯 真卡点 · 层内卡点</div>
+<p class="sub">CXO · 医用 PEG 材料</p>
+<p class="summary">卖材料不是服务，12 个 FDA DMF 锁定、毛利曾 85%；但 2025 +40% 反弹靠单一海外客户（占 33%），GLP-1 多为结构性推断（仅豪森一个旧链接），约 71x PE 已先行。</p>
+<div class="chips"><span class="chip hot">键凯科技 688356</span></div>
+<div class="foot"><span class="date">2026-06-23</span><a href="pages/键凯科技深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+</section>
+<section class="industry" data-ind="化工新材料">
+<div class="industry-head"><span class="dot 化工新材料"></span><h2>化工新材料</h2><span class="cnt">3 篇</span></div>
+<div class="type-label">产业链</div>
+<div class="grid">
+<article class="card" data-ind="化工新材料" data-hay="工业气体产业链深挖 工业气体 · 电子特气/氦气 板块正投机熔涨(中船特气 +406% 停牌核查、PE 510x;金宏 900x 而 Q1 -89%),但真卡点名字(广钢氦气、杭氧设备+运营)没参与;真正稀缺已上移到前驱体/掺杂气/光刻气,NF3/SF6 反在商品化。 广钢气体 688548 南大光电 300346 杭氧股份 002430 中船特气 688146 雅克科技 002409 化工新材料">
+<span class="badge 产业链">产业链</span>
+<h3>工业气体产业链深挖</h3>
+<p class="sub">工业气体 · 电子特气/氦气</p>
+<p class="summary">板块正投机熔涨(中船特气 +406% 停牌核查、PE 510x;金宏 900x 而 Q1 -89%),但真卡点名字(广钢氦气、杭氧设备+运营)没参与;真正稀缺已上移到前驱体/掺杂气/光刻气,NF3/SF6 反在商品化。</p>
+<div class="keypick">🎯 本链头号卡点：广钢气体</div>
+<div class="chips"><span class="chip hot">广钢气体 688548</span><span class="chip">南大光电 300346</span><span class="chip">杭氧股份 002430</span><span class="chip">中船特气 688146</span><span class="chip">雅克科技 002409</span></div>
+<div class="foot"><span class="date">2026-06-24</span><a href="pages/工业气体产业链深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+<div class="type-label">单公司深挖</div>
+<div class="grid">
+<article class="card" data-ind="化工新材料,半导体" data-hay="南大光电 (300346) 单公司深挖 电子特气 · 前驱体/MO源/光刻胶 基本面真在兑现(归母+18%、Q1+30%、现金流2.3倍净利)但估值脱离基本面(PE~153x、PEG 5-9)。真护城河在 IC 前驱体,ArF 光刻胶是期权(&lt;1%营收),NF3 是在缩的商品。宽平台、多点国产替代,但每个环节都不是那条链的顶端卡点。 南大光电 300346 化工新材料 半导体">
+<span class="badge 单公司深挖">单公司深挖</span>
+<h3>南大光电 (300346) 单公司深挖</h3>
+<p class="sub">电子特气 · 前驱体/MO源/光刻胶</p>
+<div class="crosstag">↳ 也属:半导体</div>
+<p class="summary">基本面真在兑现(归母+18%、Q1+30%、现金流2.3倍净利)但估值脱离基本面(PE~153x、PEG 5-9)。真护城河在 IC 前驱体,ArF 光刻胶是期权(&lt;1%营收),NF3 是在缩的商品。宽平台、多点国产替代,但每个环节都不是那条链的顶端卡点。</p>
+<div class="chips"><span class="chip">南大光电 300346</span></div>
+<div class="foot"><span class="date">2026-06-24</span><a href="pages/南大光电深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+<div class="type-label">对比深挖</div>
+<div class="grid">
+<article class="card" data-ind="化工新材料,半导体" data-hay="广钢气体 vs 华特气体 — 地缘/氦气对比深挖 工业气体 · 氦气/电子特气 市场猜“卡塔尔气源受战争威胁→广钢利好变利空”;证据基本推翻:广钢用美/澳回补吸收冲击、短缺净偏正面(Q1 净利+62.6%),跑输是因它是价值股非投机主题股。华特上涨其实也是氦气(俄罗斯单源)+转债逼空,且盈利在跌、内部人高位套现。 广钢气体 688548 华特气体 688268 化工新材料 半导体">
+<span class="badge 对比深挖">对比深挖</span>
+<h3>广钢气体 vs 华特气体 — 地缘/氦气对比深挖</h3>
+<p class="sub">工业气体 · 氦气/电子特气</p>
+<div class="crosstag">↳ 也属:半导体</div>
+<p class="summary">市场猜“卡塔尔气源受战争威胁→广钢利好变利空”;证据基本推翻:广钢用美/澳回补吸收冲击、短缺净偏正面(Q1 净利+62.6%),跑输是因它是价值股非投机主题股。华特上涨其实也是氦气(俄罗斯单源)+转债逼空,且盈利在跌、内部人高位套现。</p>
+<div class="chips"><span class="chip hot">广钢气体 688548</span><span class="chip">华特气体 688268</span></div>
+<div class="foot"><span class="date">2026-06-24</span><a href="pages/广钢vs华特(地缘氦气)深挖.html">查看完整分析 →</a></div>
+</article>
+</div>
+</section>
+<div class="empty" id="empty">没有匹配的分析。</div>
+</main>
+<footer class="site"><div class="wrap"><p class="disclaimer">免责声明：本研究库为公开资料的研究支持与排序，不构成任何买卖建议；决策与风险由使用者自行把握。</p><p>本页由 <code>build.py</code> 自动生成。新增分析：放入 .md → 在 library.json 加一条 → 运行 <code>python3 industryresearch/build.py</code>。</p></div></footer>
+<script>
+(function(){
+  var q=document.getElementById('search'),empty=document.getElementById('empty');
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  var filts=[].slice.call(document.querySelectorAll('.filt'));
+  var curF='all';
+  function apply(){
+    var term=(q.value||'').toLowerCase().trim();var shown=0;
+    cards.forEach(function(c){
+      var okF=curF==='all'||(c.getAttribute('data-ind')||'').split(',').indexOf(curF)>=0;
+      var okT=!term||c.getAttribute('data-hay').toLowerCase().indexOf(term)>=0;
+      var on=okF&&okT;c.style.display=on?'':'none';if(on)shown++;
+    });
+    document.querySelectorAll('.industry').forEach(function(s){
+      var any=[].slice.call(s.querySelectorAll('.card')).some(function(c){return c.style.display!=='none';});
+      s.style.display=any?'':'none';
+      s.querySelectorAll('.type-label').forEach(function(tl){
+        var grid=tl.nextElementSibling;
+        var vis=[].slice.call(grid.querySelectorAll('.card')).some(function(c){return c.style.display!=='none';});
+        tl.style.display=vis?'':'none';grid.style.display=vis?'':'none';
+      });
+    });
+    empty.style.display=shown?'none':'block';
+  }
+  q.addEventListener('input',apply);
+  filts.forEach(function(f){f.addEventListener('click',function(){
+    filts.forEach(function(x){x.classList.remove('on');});f.classList.add('on');
+    curF=f.getAttribute('data-f');apply();
+  });});
+})();
+</script>
+</body></html>

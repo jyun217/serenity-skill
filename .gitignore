@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 .env
 .venv/
+
+# Claude Code 本地工作目录(本机设置 + 技能副本,勿提交)
+.claude/

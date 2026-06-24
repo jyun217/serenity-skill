@@ -1,0 +1,211 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>氮化镓 (GaN) 产业链深挖</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">半导体 · 第三代半导体 · GaN</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">英诺赛科 02577.HK</span><span class="chip">三安光电 600703</span><span class="chip">华润微 688396</span><span class="chip">中瓷电子 003031</span><span class="chip">中微公司 688012</span></div>
+<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：英诺赛科</div><p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>
+<h1>氮化镓(GaN)产业链深挖</h1>
+<blockquote>用 serenity-skill 方法完成的产业链卡点扫描。研究日期:2026-06-23。 所有数据来自一手年报/港交所公告/USGS 官方数据级别证据,标注证据等级。 仅为公开资料的研究支持与排序,非买卖建议。</blockquote>
+<p><strong>说明:三安光电是 600703,不是 688798(688798 是艾为电子)。</strong></p>
+<p>GaN 这条链最有意思的地方,是它和掩膜版/先进逻辑完全相反的两个特征:<strong>有一层中国全球领跑(8 吋硅基 GaN),有一层中国卡别人脖子(金属镓)</strong>。但这两层的"可投性"差别很大。</p>
+<hr>
+<h2>一、先排卡点层级(按稀缺度 × 战略价值 × 可投性)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>环节</th><th>稀缺度</th><th>中国地位</th><th>A股/港股可投性</th><th>一句话</th></tr></thead><tbody><tr><td><strong>1</strong></td><td><strong>8 吋硅基 GaN 外延+器件 IDM</strong></td><td>高(量产+良率+IP 壁垒)</td><td><strong>全球领跑</strong></td><td><strong>好</strong>(英诺赛科纯标的)</td><td>这是 AI 电源/EV 放量真正的承接层,也是中国少有的领跑环节</td></tr><tr><td><strong>2</strong></td><td><strong>体氮化镓自支撑衬底(bulk GaN)</strong></td><td><strong>极高</strong>(日本住友/三菱垄断)</td><td>落后,基本空白</td><td><strong>几乎为零</strong>(苏州纳维/东莞中镓未上市)</td><td>全链最硬,但 TAM 小(主要用于激光器/垂直 GaN),且没标的</td></tr><tr><td><strong>3</strong></td><td><strong>射频 GaN(GaN-on-SiC/硅基,5G+防务)</strong></td><td>高(军工属性)</td><td>第一梯队</td><td>较好(中瓷/国博,中电科系)</td><td>是 5G/卫星/雷达赛道,<strong>不是数据中心电源</strong></td></tr><tr><td><strong>4</strong></td><td><strong>GaN/MOCVD 外延设备</strong></td><td>高(Aixtron/Veeco 双寡头)</td><td>国产领先(中微)</td><td>一般(中微 GaN 设备对利润不重要)</td><td>真卡点,但买中微其实买的是刻蚀机</td></tr><tr><td><strong>5</strong></td><td><strong>金属镓(地缘筹码)</strong></td><td><strong>极高</strong>(中国占全球 99% 产能)</td><td><strong>卡别人脖子</strong></td><td><strong>差</strong>(无纯标的,镓是冶炼副产品)</td><td>筹码在国家层面,落不到某只 A 股报表</td></tr><tr><td>6</td><td>MO 前驱体 TMGa</td><td>中(6N 技术壁垒)</td><td>国产领先(南大光电)</td><td>一般</td><td>技术真,但全球市场仅约 1.8 亿美元,增速 6%</td></tr><tr><td>7</td><td>蓝宝石衬底</td><td>低(过剩)</td><td>过剩</td><td>好但不稀缺</td><td>最低优先级</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> 最稀缺的两层——<strong>体 GaN 衬底(最硬)和金属镓(筹码)——A 股都没有好的纯标的</strong>。而中国唯一"既领跑、又可投、还踩中 AI 电源风口"的环节,是 <strong>8 吋硅基 GaN-on-Si</strong>,对应标的几乎只有一个:英诺赛科。这是这条链最重要的结论。</p>
+<p><strong>AI-GaN 关系(泼冷水):</strong> 真实但比叙事窄。在 AI 机柜里,<strong>GaN 赢的是 GPU 旁边的低压高频末级(800V→GPU 核心),SiC 拿走高压前端(电网→机柜、800V HVDC)</strong>——两者是互补不是替代。而且整个功率 GaN 市场只有约 2.71 亿美元(2023)→约 44 亿美元(2030,TrendForce),<strong>绝对盘子不大,股价跑在收入前面</strong>。</p>
+<hr>
+<h2>二、5 个最值得优先研究的标的</h2>
+<h3>1. 英诺赛科 InnoScience(02577.HK)— 唯一控制"中国领跑层"的纯标的</h3>
+<ul><li><strong>卡住的环节</strong>:全球首家 8 吋硅基 GaN-on-Si 大规模量产 IDM,30V–1,200V 全电压谱系,良率 &gt;95%。</li><li><strong>产业链位置</strong>:第 1 层(外延+器件),离 AI 数据中心电源和 EV 最近。</li><li><strong>排序原因</strong>:全球 GaN 功率份额第一(约 33.7%,F&amp;S),累计出货 &gt;20 亿颗。<strong>AI/EV 证据最硬</strong>:进入英伟达 800V HVDC 供应体系;与安森美战略协议(采购其 8 吋 GaN 晶圆,未来数亿美元);<strong>谷歌 AI 硬件 design-in(2026-02)</strong>;650V GaN 上汇川 OBC 并在长安汽车装车。2025 营收 12.1 亿(+46%),<strong>毛利率首次转正(-19.5%→+7.3%)</strong>。<strong>证据强(港交所年报+多份公告)</strong>。</li><li><strong>主要风险</strong>:<strong>仍净亏损</strong>(2025 亏约 7.5 亿),毛利率仅 7%,GaN 器件价格战、ASP 持续下行;与英飞凌的<strong>专利诉讼</strong>(德国/美国 ITC 在旧产品上判英诺侵权,中国反诉英诺胜、英飞凌被禁售)——影响西方市场扩张;2026-06 刚完成 H 股全流通,流通盘扩大。<strong>能力强、盈利质量弱的成长股,不是现金牛。</strong></li></ul>
+<h3>2. 中瓷电子(003031)— A 股最纯的射频 GaN,国内规模第一</h3>
+<ul><li><strong>卡住的环节</strong>:氮化镓通信基站射频芯片与器件。子公司<strong>博威</strong>承接<strong>中电科 13 所</strong> GaN 业务,年报称其"国内规模最大的第三代半导体 GaN 射频器件及模块制造商,基站功放细分市场国内第一"。</li><li><strong>产业链位置</strong>:第 3 层(RF GaN),5G/卫星/防务赛道。</li><li><strong>排序原因</strong>:RF GaN 国产化+军工属性,有真实业务和客户(国际通信设备龙头),是中电科 13 所 GaN RF 的上市载体。<strong>证据强(年报+资产重组审计报告)</strong>。</li><li><strong>主要风险</strong>:<strong>别买错赛道——这是 5G/防务,不是数据中心电源</strong>;营收依赖国内运营商资本开支节奏;防务订单披露有限。</li></ul>
+<h3>3. 华润微(688396)— 有真实 GaN 产线、明确切 AI 数据中心的 IDM</h3>
+<ul><li><strong>卡住的环节</strong>:自有硅基 GaN 工艺,<strong>650V D-mode G5 平台多款量产</strong>,氮化镓外延中心已启用,明确"加速 GaN 在 AI 数据中心产业化"。</li><li><strong>产业链位置</strong>:第 1 层(IDM),但 GaN 仍是小体量。</li><li><strong>排序原因</strong>:在 A 股里少数<strong>真有 GaN 产线在跑</strong>、而非储备的 IDM,自主可控属性强。<strong>证据中–强(年报)</strong>。</li><li><strong>主要风险</strong>:<strong>GaN 营收完全未单列</strong>,混在"第三代半导体"里,真实规模查不到(SiC 才是它披露的放量主线);需在业绩说明会/互动易追问 GaN 收入与产能。</li></ul>
+<h3>4. 三安光电(600703)— 平台最全,RF+功率 GaN 都做,但被 LED 稀释</h3>
+<ul><li><strong>卡住的环节</strong>:三安集成做 RF GaN(基站/卫星/机器人),同时做硅基功率 GaN(明确用于 <strong>AI 服务器电源 + 人形机器人关节电机</strong>),与头部电驱厂开发双向开关 GaN。</li><li><strong>产业链位置</strong>:第 1+3 层(化合物半导体全平台)。</li><li><strong>排序原因</strong>:平台覆盖最全,RF 和功率两条线都沾 AI,SiC(与意法合资 8 吋)是另一张牌。<strong>证据中–强(年报,GaN 提及 75 处)</strong>。</li><li><strong>主要风险</strong>:<strong>GaN 收入完全混在化合物半导体大盘,看不到规模</strong>;主体盈利受 LED 周期拖累,GaN 信号被稀释。</li></ul>
+<h3>5. 中微公司(688012)— MOCVD 设备卡点,但要想清楚你买的是什么</h3>
+<ul><li><strong>卡住的环节</strong>:年报明确"持续保持国际<strong>氮化镓基 MOCVD 设备</strong>市场领先地位",GaN 功率 MOCVD(Prismo PD5)已交付客户验证、有重复订单。</li><li><strong>产业链位置</strong>:第 4 层(外延设备),最难的设备双寡头里国产突围者。</li><li><strong>排序原因</strong>:设备是真卡点,中微是国产唯一能打的。</li><li><strong>主要风险(重点划线)</strong>:<strong>中微 2025 年 124 亿营收里压倒性是刻蚀机(~98 亿),MOCVD 是很小且成熟的一块,对利润不重要</strong>。"买中微吃 GaN"逻辑不成立——你买的实质是一家刻蚀设备公司。GaN 设备只是题材弹性。</li></ul>
+<hr>
+<h2>三、特意往后排/纠正的"热门"方向</h2>
+<ul><li><strong>金属镓没有好的 A 股纯标的</strong>:中国占全球 99% 产能、出口管制把价格抬起来(USGS:99.99% 镓 $240→$420/kg),这是真筹码。但<strong>镓是氧化铝/锌冶炼副产品,中铝、中国宏桥根本不单列</strong>;受益更直接的反而是<strong>锗</strong>(云南锗业 002428、驰宏锌锗 600497)。</li><li><strong>云南锗业 ≠ 金属镓标的</strong>:它名义带"镓",<strong>实际是锗 + 砷化镓/磷化铟衬底</strong>公司,营收仅 10.7 亿,"镓"几乎都指砷化镓晶片。把它当"镓管制受益纯标"是误读。</li><li><strong>南大光电(300346)的 TMGa</strong>:技术真领先(6N、全系列),但<strong>全球 MO 源市场只有约 1.8 亿美元、增速 6%、80% 是 LED 用</strong>——是"高壁垒、小市场",不是 GaN 放量的高价值卡点。南大真正的成长在 IC 前驱体和电子特气,不在 MO 源。</li><li><strong>雅克科技(002409)、中船特气(688146)</strong>:前者前驱体是存储/逻辑用高 k(年报"氮化镓"0 次),后者是 NF3/WF6 通用特气——<strong>都与 GaN 关联弱,排除</strong>。</li><li><strong>士兰微、扬杰、捷捷、新洁能</strong>:GaN 多为方向性/专利储备,无 GaN 单项营收,主线是 MOSFET/IGBT/SiC——<strong>故事大于落地,降级</strong>。</li><li><strong>东微半导(688261)是反向</strong>:主推"超级硅 MOSFET 替代 GaN",不是 GaN 标的。</li><li><strong>闻泰/安世(600745)</strong>:安世确有 650V GaN 产品线,但<strong>安世近两年的控制权/地缘状况(荷兰政府干预、实体清单)直接影响 GaN 资产是否还能并表</strong>——这一项一手源没查实,<strong>标记需核实</strong>,不建议在没核清控制权前纳入。</li><li><strong>蓝宝石衬底(露笑 002617、天通 600330)</strong>:过剩、China-led、不稀缺,最低优先级。</li></ul>
+<hr>
+<h2>四、什么情况说明这个判断错了(反方)</h2>
+<ol><li><strong>绝对盘子太小</strong>:就算 49% CAGR,功率 GaN 到 2030 也只有约 44 亿美元——英诺赛科/Navitas 的估值可能在定价一个还没出现的大市场。</li><li><strong>SiC 吃走高价值段</strong>:AI 机柜里最大的电源美元(固态变压器、800V 前端)是 SiC,不是 GaN。</li><li><strong>硅没死</strong>:末级 PoL 多相硅方案便宜够用,GaN 要在成本溢价下靠密度/效率赢。</li><li><strong>design-in ≠ 收入</strong>:谷歌/英伟达 MGX 的导入还很早,放量和 ASP 未证。</li><li><strong>IP 风险</strong>:英飞凌专利墙可能限制英诺赛科西方扩张。</li><li><strong>GaN 收入看不清</strong>:除英诺赛科外,华润微/三安/士兰微都不单列 GaN,"GaN 受益"难以证伪也难以证实。</li></ol>
+<hr>
+<h2>五、下一步具体查什么</h2>
+<ol><li><strong>英诺赛科 2026 中报</strong>:毛利率能否继续往上、英伟达 HVDC/安森美晶圆订单是否落地为收入、H 股全流通后流通盘变化。</li><li><strong>华润微/三安</strong>:在业绩说明会/互动易直接问"GaN 器件 2025 营收 + 2026 产能"——这是把"故事"变"数字"的关键。</li><li><strong>中微</strong>:盯 PD5/新一代 GaN 功率 MOCVD 的订单转化,但别把它当 GaN 纯标的看。</li><li><strong>金属镓价格</strong>:查 SMM/上海有色网 2025-2026 镓、锗现货价,确认管制后是否仍在高位;翻中铝/中国宏桥互动易确认是否有镓产能/收入量化披露。</li><li><strong>闻泰/安世</strong>:读 HKEX/上交所最新临时公告 + Nexperia 官网,确认安世是否仍并表、GaN 资产归属——核清前不纳入。</li><li><strong>体 GaN 衬底</strong>:跟踪苏州纳维、东莞中镓、晶湛半导体(Enkris,GaN 外延代工)的上市动向——这是目前"想买买不到"的最硬一层。</li></ol>
+<hr>
+<h2>主要信源</h2>
+<p><strong>强证据</strong>:英诺赛科 02577 2025 年报(cninfo 2026-04-30/1225275468)+ 长安 OBC/onsemi/联合电子公告;三安光电 600703、华润微 688396、士兰微 600460、中瓷电子 003031、国博电子 688375、南大光电 300346、云南锗业 002428、驰宏锌锗 600497、中微 688012 各 2025 年报(cninfo);USGS Mineral Commodity Summaries 2025(镓/锗)。</p>
+<p><strong>中等证据</strong>:TrendForce GaN 功率市场报告(271M→4.376B)、Navitas–NVIDIA 800V HVDC 公告、Semiconductor Today、CMBI 英诺赛科首次覆盖。</p>
+<p><strong>需核实</strong>:各家 GaN 单项营收、Yole 报告正文数字、闻泰/安世控制权现状、最新镓现货价、十四五/大基金一手文件。</p>
+<hr>
+<p>*这是研究排序和证据链,不是买卖建议——决策和风险由使用者自行把握。*</p>
+</article>
+</body></html>

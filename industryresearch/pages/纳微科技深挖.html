@@ -1,0 +1,211 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>纳微科技 (688690) 单公司深挖 — GLP-1/纯化卡点收口</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">医药生物 · 生命科学上游 · 色谱填料</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">纳微科技 688690</span></div>
+<div class="signal-callout">
+<div class="lead">🎯🎯 真卡点 · 多源指向</div>
+<p class="desc">纳微科技 被 2 条相互独立的产业链列为头号卡点——多源指向，Serenity 方法里最强的信号。相关分析：</p>
+<a href="生命科学上游试剂产业链深挖.html">生命科学上游试剂产业链深挖 →</a><a href="色谱分离纯化产业链深挖.html">色谱分离纯化产业链深挖 →</a>
+</div>
+<h1>纳微科技(688690)单公司深挖 —— GLP-1/多肽纯化卡点收口</h1>
+<blockquote>用 serenity-skill 方法的单公司挑战。研究日期:2026-06-24。 本篇是 GLP-1/多肽纯化这条线的收口:纳微在前三篇(CRO、生命科学上游试剂、色谱分离纯化)都被指向为第 1 卡点的本体。 数据主要来自 cninfo 一手年报(强证据 [S])+ 信达证券深度报告(中 [M])。仅为研究支持,非买卖建议。</blockquote>
+<hr>
+<h2>一句话判断(收口)</h2>
+<p>纳微科技(688690)是<strong>前面三篇反复指向的那个真卡点的本体</strong>——国产色谱填料/层析介质龙头,单分散微球技术(CV&lt;3% vs 进口&gt;10%)是真材料科学壁垒,81.8% 的填料毛利就是定价权的证据,GLP-1/多肽纯化是最直接的需求引擎。<strong>业务和技术是这一串里最硬的;但它有两个别处没有的硬伤:估值极贵(TTM PE 约 98x)和治理瑕疵(控股股东收警示函、董事长股份被冻结)。</strong> 卡点是真的,买点要另算。</p>
+<hr>
+<h2>一、卡住的环节 / 产业链位置</h2>
+<ul><li><strong>卡住的环节</strong>:色谱填料/层析介质——生物药(抗体/ADC)、多肽/GLP-1、胰岛素、寡核苷酸纯化的核心耗材,<strong>按批次反复消耗 + GMP 锁进药品工艺</strong>。</li><li><strong>产业链位置</strong>:生命科学上游"卖铲子"层里护城河最硬的那一格;既给多肽 CDMO(凯莱英/诺泰/圣诺)供货,也给抗体药企供货,是 GLP-1 放量、抗体国产化两条线的共同受益点。</li></ul>
+<h2>二、业绩轨迹:IPO 高峰 → COVID 退潮 → 2025 复苏 [S]</h2>
+<div class="table-wrap"><table><thead><tr><th>万元/亿元</th><th>2020</th><th>2021</th><th>2022(峰)</th><th>2023(谷)</th><th>2024</th><th>2025</th><th>Q1'26</th></tr></thead><tbody><tr><td>营收</td><td>2.05亿</td><td>4.46亿</td><td><strong>7.06亿</strong></td><td>5.87亿</td><td>7.82亿</td><td><strong>9.25亿</strong></td><td>2.53亿</td></tr><tr><td>归母净利</td><td>0.73</td><td>1.88</td><td><strong>2.75</strong></td><td>0.69</td><td>0.83</td><td><strong>1.36</strong></td><td>0.68</td></tr><tr><td>扣非净利</td><td>0.63</td><td>1.72</td><td>1.97</td><td><strong>0.32(谷)</strong></td><td>0.66</td><td>1.18</td><td>0.62</td></tr></tbody></table></div>
+<ul><li>2021-06 IPO(发行价 8.07 元);2021-22 COVID/mRNA 把 IVD 磁珠微球冲到 +365%,2022 是营收峰;<strong>2023 扣非塌到 3,159 万(-84%)是真正低谷</strong>(COVID 退潮+生物药融资寒冬+赛谱并购拖累);2024 营收回升但净利仍低(赛谱商誉减值 2,506 万);2025 复苏 +18%/+64%,<strong>Q1'26 加速到 +34%/+133%</strong>。</li><li>FY2025 综合毛利 71.3%、净利率 14.7%、ROE 7.45%、经营现金流 1.68 亿 &gt; 净利、研发占 21.3%。</li></ul>
+<h2>三、分部 FY2025 [S]</h2>
+<div class="table-wrap"><table><thead><tr><th>分产品</th><th>收入</th><th>YoY</th><th>毛利率</th></tr></thead><tbody><tr><td><strong>色谱填料/层析介质</strong></td><td><strong>5.52亿</strong></td><td>+22.57%</td><td><strong>81.81%</strong></td></tr><tr><td>— 多肽/GLP-1 填料</td><td>~1.47亿</td><td>+63%</td><td>—</td></tr><tr><td>— 大分子(抗体/ADC/疫苗/血制品)</td><td>~2.23亿</td><td>持平</td><td>—</td></tr><tr><td>色谱分析仪器(福立仪器)</td><td>1.72亿</td><td>+12.27%</td><td>46.67%</td></tr><tr><td>液相色谱柱/前处理(纳谱分析)</td><td>0.97亿</td><td>+32.36%</td><td>78.19%</td></tr><tr><td>蛋白层析系统(赛谱仪器)</td><td>0.40亿</td><td>+0.26%</td><td>24.98%</td></tr><tr><td>IVD 核心微球</td><td>778万</td><td>+46.68%</td><td>76.17%</td></tr><tr><td>光电微球</td><td>0.34亿</td><td>-3.64%</td><td>65.08%</td></tr></tbody></table></div>
+<h2>四、护城河:为什么是真卡点 [S+M]</h2>
+<ul><li><strong>单分散微球</strong>:进口介质粒径分布 CV 常 &gt;10%,纳微 <strong>&lt;3%</strong>——柱效更高、批间一致、低背压。两条自有核心工艺:硅胶<strong>模板法</strong>(免分级直接做 CV&lt;3%)+ 聚合物<strong>种子法</strong>(全球少数能量产单分散聚合物微球)。基质最全(硅胶/PS/PMMA/琼脂糖/羟基磷灰石同时能做)。</li><li><strong>切换成本锁定</strong>:填料进客户 GMP 工艺、过药监注册后几乎不换。<strong>2025 完成 9 项 FDA DMF 备案;123 次客户审计 100% 通过;商业化项目(含注册阶段)用其介质约 1.28 亿(占填料 23%)</strong>。标志案例:恒瑞卡瑞利珠单抗万升商业化线<strong>用纳微替换 3 款进口介质</strong>,国内首条全国产介质抗体商业化线。</li><li>81.8% 填料毛利 = 定价权的硬证据。</li></ul>
+<h2>五、GLP-1 证据:方向强,客户名缺 [S]</h2>
+<ul><li><strong>生物医药战略客户约 2.91 亿 = 填料收入 53%;多肽及 GLP-1 项目 108 个;多肽填料收入约 1.47 亿(+63%)、小/中分子合计约 2.70 亿(+50%)</strong>。</li><li>UniSil/UniSilRevo 硅胶"GLP-1 回收率明显提升、在头部胰岛素项目验证";针对<strong>替尔泊肽、瑞他鲁肽双/三靶点</strong>建了反相+HILIC 平台。</li><li><strong>印度药厂放大订单已突破</strong>(海外 +78%、0.84 亿,毛利 71.84%)。</li><li><strong>但客户名全部匿名(保密豁免)</strong>——没有诺和诺德/礼来/凯莱英/诺泰的实名;年报里实名的(恒瑞/正大天晴/夏尔巴/汉腾)都是<strong>大分子/ADC 侧,不是多肽</strong>。GLP-1 客户层证据缺失,只能看汇总数(此项标记需核实)。</li></ul>
+<h2>六、反方理由 / 主要风险(收口重点)</h2>
+<ol><li><strong>估值极贵</strong>:股价约 42 元、市值约 171 亿,<strong>TTM PE 约 98x、静态 125x、PB 约 8.5x、PS 约 18x</strong>。较 2021 峰值(约 124 元/约 250x PE)便宜约三分之二,但<strong>绝对仍在天上</strong>,已定价 Q1'26 +133% 这种斜率延续。</li><li><strong>治理硬伤(别处没有)</strong>:<strong>控股股东深圳纳微因违反减持规定被江苏证监局出具警示函</strong>(已记入诚信档案);<strong>董事长江必旺 511 万股因诉讼被冻结</strong>(韩寒诉苏州纳百员工持股平台纠纷,备选索赔约 3.83 亿、保全约 4.25 亿,二审中);2023-25 深圳纳微及员工平台持续减持;2025 取消监事会。</li><li><strong>利润含金量</strong>:<strong>股份支付拖累约 5,171 万</strong>(剔除后净利约 1.82 亿,公司主推"调整后"口径,等于把表观利润抬高约 38%);<strong>应收 3.2 亿(占营收约 35%)、存货 3.67 亿(约 40%)双高</strong>;所得税优惠占税前利润 9.83%。扣非占净利 86%,这一项尚可。</li><li><strong>大分子仍是短板</strong>:大分子(抗体/ADC)介质 2025 收入基本持平(vs 多肽 +50%),Protein A 亲和介质(Cytiva 的地盘)还在追赶——软胶(NMab,2021 才从西安交大保赛接技术)起步晚,NMab Titan 2024 才上、还在客户中试放量。</li><li><strong>商誉</strong>:赛谱仪器商誉毛额 1.42 亿,已累计减值 4,845 万(2024 计提 2,506 万),2025 才扭亏;若生物药/IVD 再恶化有再减值风险。</li><li><strong>同业与自建</strong>:赛分科技(688758)2024 净利甚至略高(硅胶为主、更赚钱);博格隆是药明生物旗下(渠道自留);头部药企若自建介质能力,82% 毛利会被压。</li></ol>
+<h2>七、并购 / 募投 / 产能 [S]</h2>
+<ul><li><strong>募投</strong>:IPO 净募 3.08 亿,97% 已投,无超募;海外研发营销中心项目延期至 2026-06;新型磁分离介质项目提前结项、1,257 万余款转补流。<strong>无可转债、无定增</strong>(自筹+余款扩产)。2025-01 完成回购 306.7 万股(6,099 万元)用于激励。</li><li><strong>产能基地</strong>:常熟纳微(主力,新增硅胶+羟基磷灰石干燥项目)、南通如东(新大型基地,规划早期)、纳洋中试基地(在建工程 +653% 至 4,834 万)。</li><li><strong>并购("填料+仪器/系统"一站式)</strong>:赛谱仪器(蛋白纯化系统,商誉 1.42 亿、累计减值 4,845 万、2025 扭亏)、福立仪器(分析仪器,收入 1.74 亿)、纳谱分析(色谱柱,毛利最高的子公司);2025 新增投资 耐科泰生物/睿纯科技/赛正仪器。"英菲尼"在年报子公司清单中未找到,<strong>未核实</strong>。</li></ul>
+<h2>八、竞争格局 [S+M]</h2>
+<ul><li><strong>外资在位者</strong>:大分子/亲和——Cytiva(思拓凡)、Tosoh(东曹)、Bio-Rad(伯乐)、Merck;小分子/硅胶——大阪曹达、富士、Nouryon/Kromasil。</li><li><strong>市场规模</strong>(信达引赛分招股书):全球色谱介质约 69 亿美元(2023E)→90 亿(2026E);中国约 112 亿(2023E)→203 亿(2026E,CAGR ~22%);国产化率仍低。</li><li><strong>国产同业</strong>:赛分科技(688758,2024 营收 3.15 亿/净利 0.85 亿,硅胶为主更赚钱)、博格隆(药明生物子公司,渠道自留)。<strong>纳微 2024 营收(7.82 亿)约为下一名国产同业的 2.5 倍,品类最全,是国产收入与品类双第一</strong>;但年报/券商用"国产领先供应商之一"措辞,<strong>未给精确市占率%</strong>(需核实)。</li></ul>
+<hr>
+<h2>九、下一步具体查什么</h2>
+<ol><li><strong>盯复苏斜率</strong>:2026 半年报看填料增速能否守住 +20%+、毛利守住 82%、Q1 的 +133% 是否可持续(有低基数+股份支付反转扰动)。</li><li><strong>逼客户层证据</strong>:互动易/调研问 GLP-1 战略客户(诺和/礼来代工链)、印度放大订单的金额与延续性——把"汇总数"变"实锤"。</li><li><strong>治理跟踪</strong>:江必旺股份冻结诉讼二审结果、深圳纳微减持后续、警示函是否影响再融资。</li><li><strong>大分子进度</strong>:NMab Titan/UniMab 在抗体商业化线的导入数与放量(决定它能否补齐"小分子强、大分子弱")。</li><li><strong>估值锚</strong>:对比纳微/赛分的 PE/PS 与增速,判断 GLP-1 预期是否已 price-in;盯股份支付剔除前后的真实盈利。</li></ol>
+<hr>
+<h2>主要信源</h2>
+<p><strong>强证据</strong>:cninfo 年报——纳微科技 FY2025(2026-04-16/1225107014)、FY2022(2023-04-26/1216597272)、FY2021(2022-03-11/1212541438)、Q1 2026(2026-04-28/1225204537);行情 腾讯/新浪(secid sh688690,2026-06-24 盘中)。 <strong>中证据</strong>:信达证券深度报告《色谱填料主业把握两大机遇》(2025-06-06)及更新(2025-08-28)。</p>
+<p><strong>需核实</strong>:GLP-1/多肽客户实名(年报匿名+保密豁免)、印度订单金额、纳微精确市占率%、"英菲尼"是否为其并购、2021 峰值股价/估值(来自市场记忆非年报)。</p>
+<hr>
+<p>*这是研究判断和证据链,不是买卖建议——决策和风险由使用者自行把握。*</p>
+<div class="related"><h3>相关分析</h3><a href="色谱分离纯化产业链深挖.html">色谱分离纯化产业链深挖 →</a><a href="生命科学上游试剂产业链深挖.html">生命科学上游试剂产业链深挖 →</a></div>
+</article>
+</body></html>
