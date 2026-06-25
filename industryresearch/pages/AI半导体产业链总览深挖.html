@@ -1,0 +1,210 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 半导体产业链总览深挖(A 股)</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">半导体 · AI 半导体 · 整链总览/索引</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">中微公司 688012</span><span class="chip hot">华海清科 688120</span><span class="chip">北方华创 002371</span><span class="chip hot">拓荆科技 688072</span><span class="chip hot">澜起科技 688008</span><span class="chip hot">安集科技 688019</span><span class="chip">寒武纪 688256</span><span class="chip">海光信息 688041</span><span class="chip hot">华大九天 301269</span><span class="chip">鼎龙股份 300054</span><span class="chip hot">路维光电 688401</span></div>
+<h1>AI 半导体产业链总览深挖(A 股)</h1>
+<blockquote>用 serenity-skill 方法的整条链扫描 + 索引页。研究日期:2026-06-25。 数据为 Eastmoney/腾讯一手口径(最新年报主指标 + 实时 PE/市值/PB),标注证据等级。仅研究支持,非买卖建议。 本篇是总览:把库内已有的《先进封装》《华海清科》《氮化镓 GaN》《工业气体》《南大光电》等深挖串成一张图。</blockquote>
+<hr>
+<h2>两个压倒性前提(决定怎么排)</h2>
+<ol><li><strong>EUV / apex 不可投</strong>:AI 半导体最高价值段——EUV 光刻、CoWoS、HBM 堆叠、先进逻辑——中国做不了。A 股<strong>全是"国产替代 + 需求 beta",不是 apex 卡点本体</strong>。</li><li><strong>全行业熔涨</strong>:100–350x PE 普遍,容错极小;且多个龙头<strong>增收不增利</strong>(北方华创归母 -1.8%、华海清科 +5.9%、华大九天 -44%)——估值跑在利润前面。</li></ol>
+<h2>一、先排卡点层级(稀缺度 × 中国可投性 × 证据 × 估值容错)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>层级</th><th>稀缺度</th><th>中国地位</th><th>可投性</th><th>一句话</th></tr></thead><tbody><tr><td>1</td><td><strong>半导体设备</strong>(刻蚀/薄膜/CMP/量测/涂显/清洗/离子注入/光刻)</td><td>极高</td><td>国产替代主战场,量测/光刻最弱</td><td><strong>好(但贵)</strong></td><td>大基金/02 专项重金;最大最确定的卡点方向</td></tr><tr><td>2</td><td><strong>内存接口/HBM 配套</strong>(DDR5 RCD/CXL/Retimer)</td><td>高</td><td><strong>全球级(澜起)</strong></td><td><strong>好</strong></td><td>A 股罕见"全球市占领先"的 AI 半导体卡点</td></tr><tr><td>3</td><td><strong>半导体材料</strong>(CMP 耗材/电子特气/掩膜版/大硅片/前驱体)</td><td>中–高</td><td>国产替代进行中</td><td><strong>好</strong></td><td>按批复购、认证锁定;高毛利耗材护城河</td></tr><tr><td>4</td><td><strong>AI 算力芯片</strong>(国产 GPU/ASIC)</td><td>中(需求本体,非供给卡点)</td><td>真在放量</td><td>好但<strong>最贵</strong></td><td>需求引擎,但 fabless、受制代工+HBM、估值极端</td></tr><tr><td>5</td><td><strong>先进封装/HBM 制造配套</strong></td><td>高(apex 在台韩)</td><td>设备/材料可吃,apex 不可投</td><td>中–好</td><td>AI 最直接封装拉动;见库内《先进封装》</td></tr><tr><td>—</td><td>EDA/IP、存储</td><td>高/中</td><td>真卡点但利润弱/早期</td><td>降级</td><td>华大九天利润 -44%、PE 失真;国产 HBM 早期</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> 真正"既近卡点、能投、还赚钱"的优先级是 <strong>设备 + 内存接口 + 材料</strong>;算力芯片是最热但最贵的需求 beta;先进封装的 apex(CoWoS/HBM)不可投。</p>
+<hr>
+<h2>二、5 个最值得优先研究的方向 + 标的(实时 2026-06-25)</h2>
+<h3>方向 1:半导体设备国产替代 —— 最大、最确定的卡点</h3>
+<ul><li><strong>卡住的环节</strong>:晶圆制造各工序设备;最卡的是<strong>光刻机(上海微电子,未上市)和量测/检测(国产化率最低)</strong>,刻蚀/薄膜/CMP 国产已较强。</li><li><strong>代表标的</strong>:</li><ul><li>中微公司(688012):刻蚀,营收 123.8 亿 <strong>+36.6%/归母 +30.7%</strong>、净利 16.7%——<strong>设备里最健康</strong>;PE 138x。</li><li>华海清科(688120)🎯:CMP/减薄国产近垄断(见库内单公司深挖),但 <strong>+36.5% 营收/归母仅 +5.9%、净利率 30%→23%</strong>;PE 114x。</li><li>北方华创(002371):平台龙头,营收 393 亿 +30.9% 但<strong>归母 -1.8%</strong>;PE 104x/5787 亿。</li><li>拓荆(688072):薄膜+混合键合,+58.9%,毛利降到 35%、<strong>PB 32x</strong>。</li><li>中科飞测(688361):量测——<strong>真卡点但几乎不盈利</strong>(净利 2.9%、PE 2 万倍)。</li></ul><li><strong>排序理由</strong>:政策最重金、份额最确定、覆盖最广。<strong>主要风险</strong>:估值 100–150x;多家增收不增利;光刻机 apex 仍缺。</li></ul>
+<h3>方向 2:内存接口 / HBM 配套(澜起)—— A 股罕见的全球级卡点</h3>
+<ul><li><strong>卡住的环节</strong>:DDR5 内存接口芯片(RCD/MRCD/MDB)、CXL、PCIe Retimer——AI 服务器内存带宽必经芯片,全球澜起/Rambus/瑞萨寡头。</li><li><strong>代表标的</strong>:澜起科技(688008):营收 54.6 亿 <strong>+49.9%/归母 +58.4%/净利 39%/毛利 62%</strong>;PE 135x/3459 亿。</li><li><strong>排序理由</strong>:中国少有的"<strong>全球市占领先</strong>"的 AI 半导体卡点(不像设备/算力只是国产替代或需求 beta)。<strong>主要风险</strong>:PE 135x;DDR 周期性;CXL 放量节奏未定。</li></ul>
+<h3>方向 3:半导体材料国产替代 —— 高毛利、按批复购的耗材卡点</h3>
+<ul><li><strong>卡住的环节</strong>:CMP 抛光液/抛光垫、电子特气、掩膜版、大硅片、光刻胶/前驱体——按批消耗、认证锁定。</li><li><strong>代表标的</strong>:</li><ul><li>安集科技(688019):CMP 抛光液,+36.5%/<strong>净利 31%/PE 74x</strong>——<strong>基本面最好且相对最便宜</strong>。</li><li>鼎龙股份(300054):CMP 抛光垫国产替代,净利 21.7%/PE 110x。</li><li>华特气体 / 南大光电:电子特气/前驱体(见库内《工业气体》《南大光电》)。</li><li>路维光电(688401):掩膜版,PE 64x(全场最便宜),但小盘、面板占比高。</li></ul><li><strong>排序理由</strong>:耗材护城河实(认证锁定+复购),安集是"高增高利+相对低估"代表。<strong>主要风险</strong>:大硅片(沪硅)仍亏损;部分材料商品化价格战;小盘波动。</li></ul>
+<h3>方向 4:AI 算力芯片(国产 GPU/ASIC)—— 需求引擎,最热,最贵</h3>
+<ul><li><strong>卡住的环节</strong>:国产 AI 芯片——需求本体,但 fabless、<strong>依赖 SMIC 产能 + 先进封装 + HBM</strong>,<strong>自身不是供给卡点</strong>。</li><li><strong>代表标的</strong>:寒武纪(688256)营收 <strong>+453%/归母 +555%</strong>、净利 32%,但 <strong>PE 350x/9500 亿/PB 78x</strong>;海光信息(688041)+56.9%/净利 25%、PE 307x/8378 亿(基本面更扎实)。</li><li><strong>排序理由</strong>:弹性最大、需求最确定;但<strong>买的是需求 beta,不是供给卡点</strong>。<strong>主要风险</strong>:估值极端(寒武纪 PB 78x);代工/先进制程/HBM 是它的真瓶颈;AI 资本开支放缓杀估值最快。</li></ul>
+<h3>方向 5:先进封装 / HBM 制造配套(AI 专属封装)</h3>
+<ul><li><strong>卡住的环节</strong>:CoWoS/2.5D/3D/chiplet/HBM。<strong>apex(CoWoS/HBM)在台韩、不可投</strong>;A 股能吃的是减薄/CMP、混合键合、载板、OSAT 产能。</li><li><strong>代表标的</strong>(详见库内《先进封装产业链深挖》):华海清科(减薄/CMP 🎯)、拓荆(混合键合)、深南电路(FCBGA 载板)、长电/通富(OSAT,毛利仅 14% 的产能 beta)。</li><li><strong>排序理由</strong>:AI 最直接的封装拉动。<strong>主要风险</strong>:最稀缺两层(混合键合、ABF 载板)A 股<strong>要么没纯标的、要么亏钱</strong>;OSAT 低毛利;CoWoS 国产化未证。</li></ul>
+<hr>
+<h2>三、什么情况说明判断错了 / 市场可能没看清(反方)</h2>
+<ol><li><strong>估值已先行</strong>:全行业 100–350x PE,<strong>多个龙头增收不增利</strong>(北方华创 -1.8%、华海清科 +5.9%、华大九天 -44%)。AI 资本开支或国产代工一旦放缓,杀估值快于杀业绩——头号风险。</li><li><strong>apex 拿不到</strong>:EUV/CoWoS/HBM/先进逻辑做不了;若 AI 价值主要落在这些不可投环节,A 股只能吃"次优段"。</li><li><strong>算力 ≠ 卡点</strong>:寒武纪/海光是需求 beta,真瓶颈在上游(SMIC 代工、HBM、先进封装)。</li><li><strong>设备价格战</strong>:国产替代进竞争期,毛利普遍下行(华海清科 47%→42%、拓荆→35%),增收不增利可能持续。</li><li><strong>最稀缺常无好标的</strong>:量测(中科飞测不盈利)、混合键合、ABF 载板、光刻机——越卡的越没能赚钱的纯标的。</li></ol>
+<p><strong>基本面 vs 估值最匹配(优先看)</strong>:安集科技(PE74/净利31/+47%)、澜起科技(PE135/净利39/+58%)、中微公司(PE138/+31%);<strong>最该警惕</strong>:中科飞测(PE 2 万倍)、寒武纪(350x/PB78)、华大九天(利润 -44%)。</p>
+<hr>
+<h2>四、下一步具体查什么</h2>
+<ol><li><strong>设备"增收不增利"拐点</strong>:北方华创/华海清科/拓荆的三费增速、毛利能否止跌、增量收入何时转成增量利润。</li><li><strong>澜起</strong>:DDR5/MRCD/MDB 渗透率、CXL/Retimer 放量、与 Rambus 份额对比——坐实"全球级卡点"。</li><li><strong>材料</strong>:安集抛光液/鼎龙抛光垫客户认证与产能、沪硅大硅片何时转正;电子特气见库内。</li><li><strong>算力的真瓶颈</strong>:寒武纪/海光的 SMIC 代工产能、HBM 供给、先进封装配套。</li><li><strong>EDA</strong>:华大九天利润为何 -44%、国产 EDA 全流程能否突破——真卡点但还没变成业绩。</li></ol>
+<hr>
+<h2>库内关联深挖(索引)</h2>
+<ul><li>《先进封装产业链深挖》——CoWoS/混合键合/载板/OSAT,华海清科 🎯</li><li>《华海清科深挖》——CMP/减薄,设备国产替代的"增收不增利"样本</li><li>《氮化镓 (GaN) 产业链深挖》——第三代半导体(功率/射频,非 AI 逻辑)</li><li>《工业气体产业链深挖》《广钢 vs 华特》——电子特气/氦气(半导体材料上游)</li><li>《南大光电深挖》——前驱体/掺杂气/ArF 光刻胶(半导体材料)</li></ul>
+<hr>
+<h2>主要信源</h2>
+<p><strong>强证据(Eastmoney/腾讯一手口径,2026-06-25 实时)</strong>:北方华创 002371、中微 688012、华海清科 688120、拓荆 688072、中科飞测 688361、盛美 688082、寒武纪 688256、海光 688041、华大九天 301269、概伦 688206、鼎龙 300054、安集 688019、沪硅 688126、澜起 688008、兆易 603986、长电 600584、通富 002156、华特 688268、南大 300346、路维 688401 的最新年报主指标(营收/归母/增速/毛利/净利率)+ 实时 PE/市值/PB。</p>
+<p><strong>需核实</strong>:各家"AI/先进制程专用"收入占比(多未单列)、算力芯片的代工/HBM 供给、量测与 EDA 国产化进度、CMP 全球份额。</p>
+<hr>
+<p>*这是研究排序和证据链,不是买卖建议——尤其当前全行业熔涨,估值是第一位风险。决策与风险由使用者自行把握。*</p>
+<div class="related"><h3>相关分析</h3><a href="先进封装产业链深挖.html">先进封装 (Advanced Packaging) 产业链深挖 →</a><a href="华海清科深挖.html">华海清科 (688120) 单公司深挖 →</a><a href="安集科技深挖.html">安集科技 (688019) 单公司深挖 →</a><a href="氮化镓(GaN)产业链深挖.html">氮化镓 (GaN) 产业链深挖 →</a><a href="工业气体产业链深挖.html">工业气体产业链深挖 →</a><a href="南大光电深挖.html">南大光电 (300346) 单公司深挖 →</a></div>
+</article>
+</body></html>

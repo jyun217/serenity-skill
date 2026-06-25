@@ -486,7 +486,9 @@ def build_index(entries, cfg, marks):
                     parts.append('<div class="crosstag">↳ 也属:%s</div>' % html.escape("、".join(also)))
                 parts.append('<p class="summary">%s</p>' % html.escape(e["summary"]))
                 if e.get("key_pick"):
-                    parts.append('<div class="keypick">🎯 本链头号卡点：%s</div>' % html.escape(e["key_pick"]))
+                    kps = e["key_pick"]
+                    kps = [kps] if isinstance(kps, str) else kps
+                    parts.append('<div class="keypick">🎯 本链头号卡点：%s</div>' % html.escape("、".join(kps)))
                 parts.append('<div class="chips">%s</div>' % "".join(chip_html(t, marks) for t in e["tickers"]))
                 parts.append(
                     '<div class="foot"><span class="date">%s</span>'
@@ -556,11 +558,13 @@ def build_page(e, cfg, slug_to_entry, marks):
 
     # 产业链页:标出本篇头号卡点
     if e["type"] == "产业链" and e.get("key_pick"):
+        kps = e["key_pick"]
+        kps = [kps] if isinstance(kps, str) else kps
         parts.append(
             '<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：%s</div>'
             '<p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。'
             '若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>'
-            % html.escape(e["key_pick"])
+            % html.escape("、".join(kps))
         )
 
     # 单公司页:若该标的是某些产业链的头号卡点
@@ -731,7 +735,8 @@ def main():
     for e in entries:
         kp = e.get("key_pick")
         if kp:
-            pick_of.setdefault(kp, []).append(e)
+            for nm in ([kp] if isinstance(kp, str) else kp):
+                pick_of.setdefault(nm, []).append(e)
     marks = {}
     for nm, chains in pick_of.items():
         marks[nm] = {
