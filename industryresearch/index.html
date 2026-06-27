@@ -26,9 +26,15 @@ header.site .wrap{padding:34px 22px 26px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
-#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
-  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
 #search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
 .filters{display:flex;gap:7px;flex-wrap:wrap}
 .filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
@@ -105,6 +111,10 @@ footer.site .wrap{padding:24px 22px 40px}
 .signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
 .signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
 .signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
 .signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
   border-radius:11px;padding:9px 14px;font-size:13.5px}
 .signal-item .nm{color:#ffe39a;font-weight:700}
@@ -166,10 +176,10 @@ footer.site .wrap{padding:24px 22px 40px}
 <header class="site"><div class="wrap">
 <h1>产业链卡点研究库</h1>
 <p class="sub">Serenity 方法 · 源头证据 · 卡点优先 — 研究支持，非买卖建议</p>
-<div class="meta-row"><span><b>34</b> 篇分析</span><span>覆盖 <b>4</b> 个行业</span><span>最近更新 <b>2026-06-27</b></span></div>
+<div class="meta-row"><span><b>39</b> 篇分析</span><span>覆盖 <b>4</b> 个行业</span><span>最近更新 <b>2026-06-27</b></span></div>
 </div></header>
 <div class="toolbar"><div class="wrap">
-<input id="search" type="text" placeholder="搜索标题 / 标的 / 关键词…">
+<div class="search-wrap"><input id="search" type="text" placeholder="搜索标题 / 标的 / 关键词…"><span class="search-clear" id="clear" title="清空">×</span></div>
 <div class="filters"><span class="filt on" data-f="all">全部</span>
 <span class="filt" data-f="半导体">半导体</span>
 <span class="filt" data-f="AI基础设施">AI基础设施</span>
@@ -182,28 +192,47 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="signal-banner">
 <div class="lead">🎯 真卡点信号</div>
 <p class="desc">每有一条产业链把某标的列为<b class="lg-gold">头号卡点</b>，它就多一颗 🎯。<b class="lg-gold">1 颗 = 层内卡点</b>(单条产业链的头号卡点)；<b class="lg-gold">≥2 颗 = 多源指向</b>(多条相互独立的产业链共同把它列为头号卡点，最强信号)。</p>
+<div class="signal-group" data-ind="半导体">
+<div class="sg-head">半导体<span class="sg-cnt">15</span></div>
 <div class="signal-list">
-<div class="signal-item"><span class="nm">🎯🎯 华海清科</span><span class="hit">多源指向 · CMP(化学机械抛光)产业链深挖、先进封装 (Advanced Packaging) 产业链深挖</span><a href="pages/华海清科深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯🎯 纳微科技</span><span class="hit">多源指向 · 生命科学上游试剂产业链深挖、色谱分离纯化产业链深挖</span><a href="pages/纳微科技深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 中微公司</span><span class="hit">层内卡点 · 半导体刻蚀设备产业链深挖</span><a href="pages/中微公司深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 中科飞测</span><span class="hit">层内卡点 · 半导体量测/检测设备产业链深挖</span><a href="pages/量测检测设备产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 中际旭创</span><span class="hit">层内卡点 · AI 光模块与电源磁产业链深挖</span><a href="pages/AI光模块与电源磁产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 华大九天</span><span class="hit">层内卡点 · 半导体 EDA / IP 产业链深挖</span><a href="pages/EDA与IP产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 天岳先进</span><span class="hit">层内卡点 · 碳化硅(SiC)产业链深挖</span><a href="pages/碳化硅SiC产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 安集科技</span><span class="hit">层内卡点 · CMP(化学机械抛光)产业链深挖</span><a href="pages/安集科技深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 富创精密</span><span class="hit">层内卡点 · 半导体设备零部件产业链深挖（含离子注入）</span><a href="pages/半导体设备零部件产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 广钢气体</span><span class="hit">层内卡点 · 工业气体产业链深挖</span><a href="pages/工业气体产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 彤程新材</span><span class="hit">层内卡点 · 半导体光刻胶产业链深挖</span><a href="pages/光刻胶产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 拓荆科技</span><span class="hit">层内卡点 · 半导体薄膜沉积设备产业链深挖</span><a href="pages/薄膜沉积设备产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 江丰电子</span><span class="hit">层内卡点 · 半导体靶材(溅射靶材)产业链深挖</span><a href="pages/靶材产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 沪硅产业</span><span class="hit">层内卡点 · 半导体大硅片产业链深挖</span><a href="pages/大硅片产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 澜起科技</span><span class="hit">层内卡点 · 内存接口 / HBM 配套产业链深挖</span><a href="pages/澜起科技深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 盛美上海</span><span class="hit">层内卡点 · 半导体清洗/涂胶显影/离子注入设备产业链深挖</span><a href="pages/清洗涂显离子注入设备产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 英诺赛科</span><span class="hit">层内卡点 · 氮化镓 (GaN) 产业链深挖</span><a href="pages/氮化镓(GaN)产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 路维光电</span><span class="hit">层内卡点 · 掩膜版(光罩)产业链深挖</span><a href="pages/掩膜版产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 铂科新材</span><span class="hit">层内卡点 · AI 光模块与电源磁产业链深挖</span><a href="pages/AI光模块与电源磁产业链深挖.html">查看 →</a></div>
-<div class="signal-item"><span class="nm">🎯 键凯科技</span><span class="hit">层内卡点 · CRO 产业链深挖</span><a href="pages/键凯科技深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="华海清科 cmp(化学机械抛光)产业链深挖、先进封装 (advanced packaging) 产业链深挖"><span class="nm">🎯🎯 华海清科</span><span class="hit">多源指向 · CMP(化学机械抛光)产业链深挖、先进封装 (Advanced Packaging) 产业链深挖</span><a href="pages/华海清科深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="中微公司 半导体刻蚀设备产业链深挖"><span class="nm">🎯 中微公司</span><span class="hit">层内卡点 · 半导体刻蚀设备产业链深挖</span><a href="pages/中微公司深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="中科飞测 半导体量测/检测设备产业链深挖"><span class="nm">🎯 中科飞测</span><span class="hit">层内卡点 · 半导体量测/检测设备产业链深挖</span><a href="pages/量测检测设备产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="华大九天 半导体 eda / ip 产业链深挖"><span class="nm">🎯 华大九天</span><span class="hit">层内卡点 · 半导体 EDA / IP 产业链深挖</span><a href="pages/EDA与IP产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="天岳先进 碳化硅(sic)产业链深挖"><span class="nm">🎯 天岳先进</span><span class="hit">层内卡点 · 碳化硅(SiC)产业链深挖</span><a href="pages/碳化硅SiC产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="安集科技 cmp(化学机械抛光)产业链深挖"><span class="nm">🎯 安集科技</span><span class="hit">层内卡点 · CMP(化学机械抛光)产业链深挖</span><a href="pages/安集科技深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="富创精密 半导体设备零部件产业链深挖（含离子注入）"><span class="nm">🎯 富创精密</span><span class="hit">层内卡点 · 半导体设备零部件产业链深挖（含离子注入）</span><a href="pages/半导体设备零部件产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="彤程新材 半导体光刻胶产业链深挖"><span class="nm">🎯 彤程新材</span><span class="hit">层内卡点 · 半导体光刻胶产业链深挖</span><a href="pages/光刻胶产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="拓荆科技 半导体薄膜沉积设备产业链深挖"><span class="nm">🎯 拓荆科技</span><span class="hit">层内卡点 · 半导体薄膜沉积设备产业链深挖</span><a href="pages/薄膜沉积设备产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="江丰电子 半导体靶材(溅射靶材)产业链深挖"><span class="nm">🎯 江丰电子</span><span class="hit">层内卡点 · 半导体靶材(溅射靶材)产业链深挖</span><a href="pages/靶材产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="沪硅产业 半导体大硅片产业链深挖"><span class="nm">🎯 沪硅产业</span><span class="hit">层内卡点 · 半导体大硅片产业链深挖</span><a href="pages/大硅片产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="澜起科技 内存接口 / hbm 配套产业链深挖"><span class="nm">🎯 澜起科技</span><span class="hit">层内卡点 · 内存接口 / HBM 配套产业链深挖</span><a href="pages/澜起科技深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="盛美上海 半导体清洗/涂胶显影/离子注入设备产业链深挖"><span class="nm">🎯 盛美上海</span><span class="hit">层内卡点 · 半导体清洗/涂胶显影/离子注入设备产业链深挖</span><a href="pages/清洗涂显离子注入设备产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="英诺赛科 氮化镓 (gan) 产业链深挖"><span class="nm">🎯 英诺赛科</span><span class="hit">层内卡点 · 氮化镓 (GaN) 产业链深挖</span><a href="pages/氮化镓(GaN)产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="路维光电 掩膜版(光罩)产业链深挖"><span class="nm">🎯 路维光电</span><span class="hit">层内卡点 · 掩膜版(光罩)产业链深挖</span><a href="pages/掩膜版产业链深挖.html">查看 →</a></div>
 </div></div>
+<div class="signal-group" data-ind="AI基础设施">
+<div class="sg-head">AI基础设施<span class="sg-cnt">6</span></div>
+<div class="signal-list">
+<div class="signal-item" data-hay="中际旭创 ai 光模块与电源磁产业链深挖"><span class="nm">🎯 中际旭创</span><span class="hit">层内卡点 · AI 光模块与电源磁产业链深挖</span><a href="pages/AI光模块与电源磁产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="华丰科技 高速铜连接与连接器产业链深挖"><span class="nm">🎯 华丰科技</span><span class="hit">层内卡点 · 高速铜连接与连接器产业链深挖</span><a href="pages/高速铜连接与连接器产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="源杰科技 光芯片与激光器产业链深挖"><span class="nm">🎯 源杰科技</span><span class="hit">层内卡点 · 光芯片与激光器产业链深挖</span><a href="pages/光芯片与激光器产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="生益科技 ai pcb 与覆铜板(ccl)产业链深挖"><span class="nm">🎯 生益科技</span><span class="hit">层内卡点 · AI PCB 与覆铜板(CCL)产业链深挖</span><a href="pages/覆铜板CCL与AIPCB产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="英维克 液冷散热产业链深挖"><span class="nm">🎯 英维克</span><span class="hit">层内卡点 · 液冷散热产业链深挖</span><a href="pages/液冷散热产业链深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="铂科新材 ai 光模块与电源磁产业链深挖"><span class="nm">🎯 铂科新材</span><span class="hit">层内卡点 · AI 光模块与电源磁产业链深挖</span><a href="pages/AI光模块与电源磁产业链深挖.html">查看 →</a></div>
+</div></div>
+<div class="signal-group" data-ind="医药生物">
+<div class="sg-head">医药生物<span class="sg-cnt">2</span></div>
+<div class="signal-list">
+<div class="signal-item" data-hay="纳微科技 生命科学上游试剂产业链深挖、色谱分离纯化产业链深挖"><span class="nm">🎯🎯 纳微科技</span><span class="hit">多源指向 · 生命科学上游试剂产业链深挖、色谱分离纯化产业链深挖</span><a href="pages/纳微科技深挖.html">查看 →</a></div>
+<div class="signal-item" data-hay="键凯科技 cro 产业链深挖"><span class="nm">🎯 键凯科技</span><span class="hit">层内卡点 · CRO 产业链深挖</span><a href="pages/键凯科技深挖.html">查看 →</a></div>
+</div></div>
+<div class="signal-group" data-ind="化工新材料">
+<div class="sg-head">化工新材料<span class="sg-cnt">1</span></div>
+<div class="signal-list">
+<div class="signal-item" data-hay="广钢气体 工业气体产业链深挖"><span class="nm">🎯 广钢气体</span><span class="hit">层内卡点 · 工业气体产业链深挖</span><a href="pages/工业气体产业链深挖.html">查看 →</a></div>
+</div></div>
+</div>
 <section class="industry" data-ind="半导体">
 <div class="industry-head"><span class="dot 半导体"></span><h2>半导体</h2><span class="cnt">23 篇</span></div>
 <div class="type-label">产业链</div>
@@ -422,9 +451,54 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 </section>
 <section class="industry" data-ind="AI基础设施">
-<div class="industry-head"><span class="dot AI基础设施"></span><h2>AI基础设施</h2><span class="cnt">2 篇</span></div>
+<div class="industry-head"><span class="dot AI基础设施"></span><h2>AI基础设施</h2><span class="cnt">7 篇</span></div>
 <div class="type-label">产业链</div>
 <div class="grid">
+<article class="card" data-ind="AI基础设施,半导体" data-hay="光芯片与激光器产业链深挖 光通信 apex · 高速光芯片+调制器+激光器 《光模块》篇主动留白的apex:模块能国产(中际旭创/新易盛全球第一),但最贵最卡的光芯片仍靠进口。真稀缺层是高速有源光芯片(EML/DFB/CW光源,博通/住友/三菱把持),源杰是国产做实龙头——毛利58%、利润+3213%,稀缺性写在毛利率上。与SiC(价格战亏损)相反,这条真卡点+真爆发+真赚钱(全组毛33-58%、增速30-140%、仕佳ROE27%)。唯一也是最大问题是估值极端(源杰PS368/PB90、长光华芯PE2069)。头号卡点给源杰(光芯片apex),估值风险划第一。无源PLC/AWG(仕佳)国产已强、非进口卡点。 源杰科技 688498 仕佳光子 688313 光迅科技 002281 光库科技 300620 长光华芯 688048 炬光科技 688167 腾景科技 688195 AI基础设施 半导体">
+<span class="badge 产业链">产业链</span>
+<h3>光芯片与激光器产业链深挖</h3>
+<p class="sub">光通信 apex · 高速光芯片+调制器+激光器</p>
+<div class="crosstag">↳ 也属:半导体</div>
+<p class="summary">《光模块》篇主动留白的apex:模块能国产(中际旭创/新易盛全球第一),但最贵最卡的光芯片仍靠进口。真稀缺层是高速有源光芯片(EML/DFB/CW光源,博通/住友/三菱把持),源杰是国产做实龙头——毛利58%、利润+3213%,稀缺性写在毛利率上。与SiC(价格战亏损)相反,这条真卡点+真爆发+真赚钱(全组毛33-58%、增速30-140%、仕佳ROE27%)。唯一也是最大问题是估值极端(源杰PS368/PB90、长光华芯PE2069)。头号卡点给源杰(光芯片apex),估值风险划第一。无源PLC/AWG(仕佳)国产已强、非进口卡点。</p>
+<div class="keypick">🎯 本链头号卡点：源杰科技</div>
+<div class="chips"><span class="chip hot">源杰科技 688498</span><span class="chip">仕佳光子 688313</span><span class="chip">光迅科技 002281</span><span class="chip">光库科技 300620</span><span class="chip">长光华芯 688048</span><span class="chip">炬光科技 688167</span><span class="chip">腾景科技 688195</span></div>
+<div class="foot"><span class="date">2026-06-27</span><a href="pages/光芯片与激光器产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="AI基础设施" data-hay="服务器电源 / HVDC 产业链深挖 AI 供电 · 服务器电源PSU+800V HVDC AI算力最后一公里供电(5.5/8kW钛金PSU+800V HVDC)。AI基础设施六链里唯一国产没做实卡点的一条:高密度服务器电源卡点在台达/光宝(全球~70%,非A股);A股麦格米特(AI电源narrative龙头/英伟达供应链)FY25归母-67%、净仅2.1%、PE610——愿景未兑现;欧陆通44亿小而专、高端仍靠台达/光宝;盛弘质地最好(ROE24%/PE28)但主业充电桩储能;HVDC玩家(中恒小、动力源亏成ROE-156%)早期。真功率卡点在器件(SiC/GaN已单列)。故刻意不设🎯——同玻璃载板/铭普纪律:卡点真但A股未做实。 麦格米特 002851 欧陆通 300870 盛弘股份 300693 中恒电气 002364 科华数据 002335 英杰电气 300820 易事特 300376 AI基础设施">
+<span class="badge 产业链">产业链</span>
+<h3>服务器电源 / HVDC 产业链深挖</h3>
+<p class="sub">AI 供电 · 服务器电源PSU+800V HVDC</p>
+<p class="summary">AI算力最后一公里供电(5.5/8kW钛金PSU+800V HVDC)。AI基础设施六链里唯一国产没做实卡点的一条:高密度服务器电源卡点在台达/光宝(全球~70%,非A股);A股麦格米特(AI电源narrative龙头/英伟达供应链)FY25归母-67%、净仅2.1%、PE610——愿景未兑现;欧陆通44亿小而专、高端仍靠台达/光宝;盛弘质地最好(ROE24%/PE28)但主业充电桩储能;HVDC玩家(中恒小、动力源亏成ROE-156%)早期。真功率卡点在器件(SiC/GaN已单列)。故刻意不设🎯——同玻璃载板/铭普纪律:卡点真但A股未做实。</p>
+<div class="chips"><span class="chip">麦格米特 002851</span><span class="chip">欧陆通 300870</span><span class="chip">盛弘股份 300693</span><span class="chip">中恒电气 002364</span><span class="chip">科华数据 002335</span><span class="chip">英杰电气 300820</span><span class="chip">易事特 300376</span></div>
+<div class="foot"><span class="date">2026-06-27</span><a href="pages/服务器电源HVDC产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="AI基础设施" data-hay="液冷散热产业链深挖 AI 散热 · CDU+冷板+冷却液+TIM AI超节点功率密度逼着风冷转液冷,需求最确定、国产化率最高。与半导体/光芯片不同,液冷卡点不在单一材料,而在系统集成+可靠性认证(CDU/冷板/快接,漏液=事故)。英维克是做实液冷龙头(营收60.7亿、ROE16.6%、温控+液冷全链)。材料端卡点是含氟浸没冷却液(3M Novec退出窗口,新宙邦/巨化),但浸没式仍利基。质地健康(全员盈利、增速11-43%),估值比光芯片/CCL温和但英维克PE218/PB32也不便宜。头号卡点给英维克(系统龙头,做实地位+全链+真盈利)。 英维克 002837 申菱环境 301018 同飞股份 300990 新宙邦 300037 中石科技 300684 高澜股份 300499 飞荣达 300602 银轮股份 002126 三花智控 002050 AI基础设施">
+<span class="badge 产业链">产业链</span>
+<h3>液冷散热产业链深挖</h3>
+<p class="sub">AI 散热 · CDU+冷板+冷却液+TIM</p>
+<p class="summary">AI超节点功率密度逼着风冷转液冷,需求最确定、国产化率最高。与半导体/光芯片不同,液冷卡点不在单一材料,而在系统集成+可靠性认证(CDU/冷板/快接,漏液=事故)。英维克是做实液冷龙头(营收60.7亿、ROE16.6%、温控+液冷全链)。材料端卡点是含氟浸没冷却液(3M Novec退出窗口,新宙邦/巨化),但浸没式仍利基。质地健康(全员盈利、增速11-43%),估值比光芯片/CCL温和但英维克PE218/PB32也不便宜。头号卡点给英维克(系统龙头,做实地位+全链+真盈利)。</p>
+<div class="keypick">🎯 本链头号卡点：英维克</div>
+<div class="chips"><span class="chip hot">英维克 002837</span><span class="chip">申菱环境 301018</span><span class="chip">同飞股份 300990</span><span class="chip">新宙邦 300037</span><span class="chip">中石科技 300684</span><span class="chip">高澜股份 300499</span><span class="chip">飞荣达 300602</span><span class="chip">银轮股份 002126</span><span class="chip">三花智控 002050</span></div>
+<div class="foot"><span class="date">2026-06-27</span><a href="pages/液冷散热产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="AI基础设施" data-hay="AI PCB 与覆铜板(CCL)产业链深挖 AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔 AI服务器/交换机/GPU卡都要高速PCB,真卡点在材料层(CCL+上游低介电玻纤/高频铜箔)不在制造。制造端沪电/胜宏/生益电子真赚钱(ROE28-36%、胜宏利润+274%);但材料卡点是覆铜板——生益科技国产CCL龙头(挑战台光/松下),最上游低介电玻纤布(宏和,11.7亿营收顶PB99)、HVLP铜箔(多进口)是卡点的卡点。与SiC相反,这条真卡点+真爆发+真赚钱,问题是估值(生益PE110、宏和PB99)。头号卡点给生益(CCL材料龙头,同靶材→江丰纪律),制造端沪电/胜宏是质地最好的AI受益者但属制造层。 生益科技 600183 沪电股份 002463 胜宏科技 300476 宏和科技 603256 联瑞新材 688300 深南电路 002916 生益电子 688183 南亚新材 688519 兴森科技 002436 AI基础设施">
+<span class="badge 产业链">产业链</span>
+<h3>AI PCB 与覆铜板(CCL)产业链深挖</h3>
+<p class="sub">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</p>
+<p class="summary">AI服务器/交换机/GPU卡都要高速PCB,真卡点在材料层(CCL+上游低介电玻纤/高频铜箔)不在制造。制造端沪电/胜宏/生益电子真赚钱(ROE28-36%、胜宏利润+274%);但材料卡点是覆铜板——生益科技国产CCL龙头(挑战台光/松下),最上游低介电玻纤布(宏和,11.7亿营收顶PB99)、HVLP铜箔(多进口)是卡点的卡点。与SiC相反,这条真卡点+真爆发+真赚钱,问题是估值(生益PE110、宏和PB99)。头号卡点给生益(CCL材料龙头,同靶材→江丰纪律),制造端沪电/胜宏是质地最好的AI受益者但属制造层。</p>
+<div class="keypick">🎯 本链头号卡点：生益科技</div>
+<div class="chips"><span class="chip hot">生益科技 600183</span><span class="chip">沪电股份 002463</span><span class="chip">胜宏科技 300476</span><span class="chip">宏和科技 603256</span><span class="chip">联瑞新材 688300</span><span class="chip">深南电路 002916</span><span class="chip">生益电子 688183</span><span class="chip">南亚新材 688519</span><span class="chip">兴森科技 002436</span></div>
+<div class="foot"><span class="date">2026-06-27</span><a href="pages/覆铜板CCL与AIPCB产业链深挖.html">查看完整分析 →</a></div>
+</article>
+<article class="card" data-ind="AI基础设施" data-hay="高速铜连接与连接器产业链深挖 AI 互联 · 224G高速连接器+铜缆+AEC 英伟达NVL72用铜背板做机柜内短距互联(&lt;2m铜比光省电)。真卡点是高速背板连接器(112G/224G),信号完整性极难、安费诺/泰科/莫仕寡头垄断,华丰科技(中电科系)是最纯国产224G突破者(ROE21.8%、利润+2120%低基数)。铜缆(DAC/AEC,沃尔/立讯)蹭NVLink真赚钱但偏标准品、卡点弱于连接器。龙头中航光电规模最大估值最低(PB3.9)但数通占比小+利润低谷。整链boom(连接器增速54-131%、毛30%+),估值分化(华丰PE157/鼎通PE195 vs 沃尔PE22)。头号卡点给华丰(纯224G高速连接器,信号完整性壁垒最高),AEC真卡点在retimer=澜起。 华丰科技 688629 中航光电 002179 鼎通科技 688668 沃尔核材 002130 立讯精密 002475 神宇股份 300563 电连技术 300679 意华股份 002897 AI基础设施">
+<span class="badge 产业链">产业链</span>
+<h3>高速铜连接与连接器产业链深挖</h3>
+<p class="sub">AI 互联 · 224G高速连接器+铜缆+AEC</p>
+<p class="summary">英伟达NVL72用铜背板做机柜内短距互联(&lt;2m铜比光省电)。真卡点是高速背板连接器(112G/224G),信号完整性极难、安费诺/泰科/莫仕寡头垄断,华丰科技(中电科系)是最纯国产224G突破者(ROE21.8%、利润+2120%低基数)。铜缆(DAC/AEC,沃尔/立讯)蹭NVLink真赚钱但偏标准品、卡点弱于连接器。龙头中航光电规模最大估值最低(PB3.9)但数通占比小+利润低谷。整链boom(连接器增速54-131%、毛30%+),估值分化(华丰PE157/鼎通PE195 vs 沃尔PE22)。头号卡点给华丰(纯224G高速连接器,信号完整性壁垒最高),AEC真卡点在retimer=澜起。</p>
+<div class="keypick">🎯 本链头号卡点：华丰科技</div>
+<div class="chips"><span class="chip hot">华丰科技 688629</span><span class="chip">中航光电 002179</span><span class="chip">鼎通科技 688668</span><span class="chip">沃尔核材 002130</span><span class="chip">立讯精密 002475</span><span class="chip">神宇股份 300563</span><span class="chip">电连技术 300679</span><span class="chip">意华股份 002897</span></div>
+<div class="foot"><span class="date">2026-06-27</span><a href="pages/高速铜连接与连接器产业链深挖.html">查看完整分析 →</a></div>
+</article>
 <article class="card" data-ind="AI基础设施" data-hay="AI 光模块与电源磁产业链深挖 AI 数据中心 · 光模块+光器件+电源磁 AI服务器两条硬件链:光(光模块/器件)+磁(磁件/软磁材料)。光侧是A股AI最猛真卡点(中际旭创全球#1净利30%、新易盛归母+236%、天孚净利39%);磁侧真卡点在上游软磁粉芯(铂科净利24%),下游磁件组装(可立克/京泉华/铭普)低毛利代工。锚点铭普(002902)经复核从降级上修为早期拐点观察:Q1&#x27;26营收+35%、毛利8.6→15.7%修复、LPO产线1.8亿转固——拐点冒头属实(HW昇腾/800V电源/800G-LPO逻辑);但合同负债没堆、2-4x量级待订单确认,仍亏、PB11.6,是LPO链高弹性受益者而非卡点本体(不上🎯)。 中际旭创 300308 新易盛 300502 天孚通信 300394 光迅科技 002281 铂科新材 300811 可立克 002782 京泉华 002885 横店东磁 002056 铭普光磁 002902 AI基础设施">
 <span class="badge 产业链">产业链</span>
 <h3>AI 光模块与电源磁产业链深挖</h3>
@@ -554,16 +628,33 @@ footer.site .wrap{padding:24px 22px 40px}
 <script>
 (function(){
   var q=document.getElementById('search'),empty=document.getElementById('empty');
+  var clr=document.getElementById('clear');
   var cards=[].slice.call(document.querySelectorAll('.card'));
   var filts=[].slice.call(document.querySelectorAll('.filt'));
+  var sgroups=[].slice.call(document.querySelectorAll('.signal-group'));
+  var banner=document.querySelector('.signal-banner');
   var curF='all';
   function apply(){
     var term=(q.value||'').toLowerCase().trim();var shown=0;
+    if(clr)clr.classList.toggle('on',!!(q.value||'').length);
     cards.forEach(function(c){
       var okF=curF==='all'||(c.getAttribute('data-ind')||'').split(',').indexOf(curF)>=0;
       var okT=!term||c.getAttribute('data-hay').toLowerCase().indexOf(term)>=0;
       var on=okF&&okT;c.style.display=on?'':'none';if(on)shown++;
     });
+    if(banner){
+      var sShown=0;
+      sgroups.forEach(function(g){
+        var okF=curF==='all'||(g.getAttribute('data-ind')||'')===curF;
+        var iShown=0;
+        [].slice.call(g.querySelectorAll('.signal-item')).forEach(function(it){
+          var okT=!term||(it.getAttribute('data-hay')||'').indexOf(term)>=0;
+          it.style.display=okT?'':'none';if(okT)iShown++;
+        });
+        var on=okF&&iShown>0;g.style.display=on?'':'none';if(on)sShown++;
+      });
+      banner.style.display=sShown?'':'none';
+    }
     document.querySelectorAll('.industry').forEach(function(s){
       var any=[].slice.call(s.querySelectorAll('.card')).some(function(c){return c.style.display!=='none';});
       s.style.display=any?'':'none';
@@ -576,6 +667,7 @@ footer.site .wrap{padding:24px 22px 40px}
     empty.style.display=shown?'none':'block';
   }
   q.addEventListener('input',apply);
+  if(clr)clr.addEventListener('click',function(){q.value='';q.focus();apply();});
   filts.forEach(function(f){f.addEventListener('click',function(){
     filts.forEach(function(x){x.classList.remove('on');});f.classList.add('on');
     curF=f.getAttribute('data-f');apply();

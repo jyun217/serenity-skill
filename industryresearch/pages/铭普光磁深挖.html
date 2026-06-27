@@ -26,9 +26,15 @@ header.site .wrap{padding:34px 22px 26px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
-#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
-  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
 #search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
 .filters{display:flex;gap:7px;flex-wrap:wrap}
 .filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
@@ -105,6 +111,10 @@ footer.site .wrap{padding:24px 22px 40px}
 .signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
 .signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
 .signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
 .signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
   border-radius:11px;padding:9px 14px;font-size:13.5px}
 .signal-item .nm{color:#ffe39a;font-weight:700}

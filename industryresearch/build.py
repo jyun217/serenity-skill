@@ -242,9 +242,15 @@ header.site .wrap{padding:34px 22px 26px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
-#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
-  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
 #search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
 .filters{display:flex;gap:7px;flex-wrap:wrap}
 .filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
@@ -321,6 +327,10 @@ footer.site .wrap{padding:24px 22px 40px}
 .signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
 .signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
 .signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
 .signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
   border-radius:11px;padding:9px 14px;font-size:13.5px}
 .signal-item .nm{color:#ffe39a;font-weight:700}
@@ -413,7 +423,8 @@ def build_index(entries, cfg, marks):
 
     # toolbar: search + industry filters
     parts.append('<div class="toolbar"><div class="wrap">')
-    parts.append('<input id="search" type="text" placeholder="搜索标题 / 标的 / 关键词…">')
+    parts.append('<div class="search-wrap"><input id="search" type="text" placeholder="搜索标题 / 标的 / 关键词…">'
+                 '<span class="search-clear" id="clear" title="清空">×</span></div>')
     parts.append('<div class="filters"><span class="filt on" data-f="all">全部</span>')
     for ind in cfg["industries_order"]:
         parts.append('<span class="filt" data-f="%s">%s</span>' % (html.escape(ind), html.escape(ind)))
@@ -432,17 +443,37 @@ def build_index(entries, cfg, marks):
             '<b class="lg-gold">1 颗 = 层内卡点</b>(单条产业链的头号卡点)；'
             '<b class="lg-gold">≥2 颗 = 多源指向</b>(多条相互独立的产业链共同把它列为头号卡点，最强信号)。</p>'
         )
-        parts.append('<div class="signal-list">')
-        for nm, info in sorted(marks.items(), key=lambda kv: (-kv[1]["stars"], kv[0])):
-            chains = "、".join(x["title"] for x in info["chains"])
-            label = "多源指向" if info["stars"] >= 2 else "层内卡点"
-            parts.append(
-                '<div class="signal-item"><span class="nm">%s %s</span>'
-                '<span class="hit">%s · %s</span>'
-                '<a href="pages/%s.html">查看 →</a></div>'
-                % ("🎯" * info["stars"], html.escape(nm), label, html.escape(chains), html.escape(info["link_slug"]))
-            )
-        parts.append("</div></div>")
+        # 按行业分组(行业取自把它列为头号卡点的产业链)
+        by_ind_marks = {}
+        for nm, info in marks.items():
+            seen = []
+            for ch in info["chains"]:
+                ci = ch.get("industry", "")
+                if ci not in seen:
+                    seen.append(ci)
+            for ci in seen:
+                by_ind_marks.setdefault(ci, {})[nm] = info
+        ind_order = [i for i in cfg["industries_order"] if i in by_ind_marks] + \
+                    [i for i in by_ind_marks if i not in cfg["industries_order"]]
+        for ind in ind_order:
+            items = by_ind_marks[ind]
+            parts.append('<div class="signal-group" data-ind="%s">' % html.escape(ind))
+            parts.append('<div class="sg-head">%s<span class="sg-cnt">%d</span></div>'
+                         % (html.escape(ind), len(items)))
+            parts.append('<div class="signal-list">')
+            for nm, info in sorted(items.items(), key=lambda kv: (-kv[1]["stars"], kv[0])):
+                in_ind = [x["title"] for x in info["chains"] if x.get("industry", "") == ind]
+                chains = "、".join(in_ind or [x["title"] for x in info["chains"]])
+                label = "多源指向" if info["stars"] >= 2 else "层内卡点"
+                shay = (nm + " " + chains).lower()
+                parts.append(
+                    '<div class="signal-item" data-hay="%s"><span class="nm">%s %s</span>'
+                    '<span class="hit">%s · %s</span>'
+                    '<a href="pages/%s.html">查看 →</a></div>'
+                    % (html.escape(shay), "🎯" * info["stars"], html.escape(nm), label, html.escape(chains), html.escape(info["link_slug"]))
+                )
+            parts.append("</div></div>")
+        parts.append("</div>")
 
     by_ind = {}
     for e in entries:
@@ -514,16 +545,33 @@ def build_index(entries, cfg, marks):
     parts.append("""<script>
 (function(){
   var q=document.getElementById('search'),empty=document.getElementById('empty');
+  var clr=document.getElementById('clear');
   var cards=[].slice.call(document.querySelectorAll('.card'));
   var filts=[].slice.call(document.querySelectorAll('.filt'));
+  var sgroups=[].slice.call(document.querySelectorAll('.signal-group'));
+  var banner=document.querySelector('.signal-banner');
   var curF='all';
   function apply(){
     var term=(q.value||'').toLowerCase().trim();var shown=0;
+    if(clr)clr.classList.toggle('on',!!(q.value||'').length);
     cards.forEach(function(c){
       var okF=curF==='all'||(c.getAttribute('data-ind')||'').split(',').indexOf(curF)>=0;
       var okT=!term||c.getAttribute('data-hay').toLowerCase().indexOf(term)>=0;
       var on=okF&&okT;c.style.display=on?'':'none';if(on)shown++;
     });
+    if(banner){
+      var sShown=0;
+      sgroups.forEach(function(g){
+        var okF=curF==='all'||(g.getAttribute('data-ind')||'')===curF;
+        var iShown=0;
+        [].slice.call(g.querySelectorAll('.signal-item')).forEach(function(it){
+          var okT=!term||(it.getAttribute('data-hay')||'').indexOf(term)>=0;
+          it.style.display=okT?'':'none';if(okT)iShown++;
+        });
+        var on=okF&&iShown>0;g.style.display=on?'':'none';if(on)sShown++;
+      });
+      banner.style.display=sShown?'':'none';
+    }
     document.querySelectorAll('.industry').forEach(function(s){
       var any=[].slice.call(s.querySelectorAll('.card')).some(function(c){return c.style.display!=='none';});
       s.style.display=any?'':'none';
@@ -536,6 +584,7 @@ def build_index(entries, cfg, marks):
     empty.style.display=shown?'none':'block';
   }
   q.addEventListener('input',apply);
+  if(clr)clr.addEventListener('click',function(){q.value='';q.focus();apply();});
   filts.forEach(function(f){f.addEventListener('click',function(){
     filts.forEach(function(x){x.classList.remove('on');});f.classList.add('on');
     curF=f.getAttribute('data-f');apply();
@@ -616,7 +665,8 @@ def build_tickers(cfg, appears, name_codes, marks):
     parts.append("</div></header>")
 
     parts.append('<div class="toolbar"><div class="wrap">')
-    parts.append('<input id="search" type="text" placeholder="搜索公司名 / 代码 / 分析标题…">')
+    parts.append('<div class="search-wrap"><input id="search" type="text" placeholder="搜索公司名 / 代码 / 分析标题…">'
+                 '<span class="search-clear" id="clear" title="清空">×</span></div>')
     parts.append('<div class="viewnav"><a href="index.html">← 按行业</a><a class="cur">按标的反查</a></div>')
     parts.append("</div></div>")
 
@@ -669,15 +719,19 @@ def build_tickers(cfg, appears, name_codes, marks):
     parts.append("""<script>
 (function(){
   var q=document.getElementById('search'),empty=document.getElementById('empty');
+  var clr=document.getElementById('clear');
   var rows=[].slice.call(document.querySelectorAll('.trow'));
-  q.addEventListener('input',function(){
+  function apply(){
     var t=(q.value||'').toLowerCase().trim();var shown=0;
+    if(clr)clr.classList.toggle('on',!!(q.value||'').length);
     rows.forEach(function(r){
       var on=!t||r.getAttribute('data-hay').toLowerCase().indexOf(t)>=0;
       r.style.display=on?'':'none';if(on)shown++;
     });
     empty.style.display=shown?'none':'block';
-  });
+  }
+  q.addEventListener('input',apply);
+  if(clr)clr.addEventListener('click',function(){q.value='';q.focus();apply();});
 })();
 </script>""")
     parts.append("</body></html>")

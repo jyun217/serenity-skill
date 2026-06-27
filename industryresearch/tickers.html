@@ -26,9 +26,15 @@ header.site .wrap{padding:34px 22px 26px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
-#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
-  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
 #search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
 .filters{display:flex;gap:7px;flex-wrap:wrap}
 .filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
   border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
@@ -105,6 +111,10 @@ footer.site .wrap{padding:24px 22px 40px}
 .signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
 .signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
 .signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
 .signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
   border-radius:11px;padding:9px 14px;font-size:13.5px}
 .signal-item .nm{color:#ffe39a;font-weight:700}
@@ -166,10 +176,10 @@ footer.site .wrap{padding:24px 22px 40px}
 <header class="site"><div class="wrap">
 <h1>按标的反查</h1>
 <p class="sub">每只标的出现在哪些分析里 — 🎯 的数量 = 被几条产业链列为头号卡点(1 颗层内卡点，≥2 颗多源指向)。</p>
-<div class="meta-row"><span>共 <b>92</b> 只标的</span><span>🎯🎯 <b>2</b> 只多源指向</span><span>🎯 <b>18</b> 只层内卡点</span></div>
+<div class="meta-row"><span>共 <b>128</b> 只标的</span><span>🎯🎯 <b>2</b> 只多源指向</span><span>🎯 <b>22</b> 只层内卡点</span></div>
 </div></header>
 <div class="toolbar"><div class="wrap">
-<input id="search" type="text" placeholder="搜索公司名 / 代码 / 分析标题…">
+<div class="search-wrap"><input id="search" type="text" placeholder="搜索公司名 / 代码 / 分析标题…"><span class="search-clear" id="clear" title="清空">×</span></div>
 <div class="viewnav"><a href="index.html">← 按行业</a><a class="cur">按标的反查</a></div>
 </div></div>
 <main class="wrap" style="padding-top:22px">
@@ -335,6 +345,16 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
 </div></div>
+<div class="trow flagged" data-hay="华丰科技 华丰科技 688629 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">🎯 华丰科技</span>
+<span class="tcode">688629</span>
+<span class="tcode">层内卡点 · 高速铜连接与连接器产业链深挖</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow flagged" data-hay="天岳先进 天岳先进 688234 碳化硅(SiC)产业链深挖">
 <div class="thead">
 <span class="tname">🎯 天岳先进</span>
@@ -374,6 +394,36 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/大硅片产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体大硅片产业链深挖</span><span class="tind">半导体材料 · 大硅片(12吋)</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow flagged" data-hay="源杰科技 源杰科技 688498 光芯片与激光器产业链深挖">
+<div class="thead">
+<span class="tname">🎯 源杰科技</span>
+<span class="tcode">688498</span>
+<span class="tcode">层内卡点 · 光芯片与激光器产业链深挖</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow flagged" data-hay="生益科技 生益科技 600183 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">🎯 生益科技</span>
+<span class="tcode">600183</span>
+<span class="tcode">层内卡点 · AI PCB 与覆铜板(CCL)产业链深挖</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow flagged" data-hay="英维克 英维克 002837 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">🎯 英维克</span>
+<span class="tcode">002837</span>
+<span class="tcode">层内卡点 · 液冷散热产业链深挖</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow flagged" data-hay="英诺赛科 英诺赛科 02577.HK 氮化镓 (GaN) 产业链深挖">
 <div class="thead">
@@ -457,6 +507,26 @@ footer.site .wrap{padding:24px 22px 40px}
 <a href="pages/先导基电深挖.html"><span class="ttype 单公司深挖">单公司深挖</span><span class="tttl">先导基电(600641)单公司深挖</span><span class="tind">半导体设备 · 重组平台(离子注入+稀散金属+地产)</span><span class="tdate">2026-06-26</span></a>
 <a href="pages/半导体设备零部件产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体设备零部件产业链深挖（含离子注入）</span><span class="tind">半导体设备 · 精密零部件+离子注入+稀散金属</span><span class="tdate">2026-06-26</span></a>
 </div></div>
+<div class="trow" data-hay="光迅科技 光迅科技 002281 光芯片与激光器产业链深挖 AI 光模块与电源磁产业链深挖">
+<div class="thead">
+<span class="tname">光迅科技</span>
+<span class="tcode">002281</span>
+<span class="tcount">被 2 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
+<a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
+</div></div>
+<div class="trow" data-hay="兴森科技 兴森科技 002436 AI PCB 与覆铜板(CCL)产业链深挖 先进封装 (Advanced Packaging) 产业链深挖">
+<div class="thead">
+<span class="tname">兴森科技</span>
+<span class="tcode">002436</span>
+<span class="tcount">被 2 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
+</div></div>
 <div class="trow" data-hay="凯莱英 凯莱英 002821 凯莱英 06821.HK CRO 产业链深挖 凯莱英 (002821 / 06821.HK) 单公司深挖">
 <div class="thead">
 <span class="tname">凯莱英</span>
@@ -477,6 +547,26 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/概伦电子深挖.html"><span class="ttype 单公司深挖">单公司深挖</span><span class="tttl">概伦电子 (688206) 单公司深挖</span><span class="tind">EDA · 器件建模/电路仿真</span><span class="tdate">2026-06-26</span></a>
 <a href="pages/EDA与IP产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体 EDA / IP 产业链深挖</span><span class="tind">芯片设计工具 · EDA/IP</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow" data-hay="深南电路 深南电路 002916 AI PCB 与覆铜板(CCL)产业链深挖 先进封装 (Advanced Packaging) 产业链深挖">
+<div class="thead">
+<span class="tname">深南电路</span>
+<span class="tcode">002916</span>
+<span class="tcount">被 2 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
+</div></div>
+<div class="trow" data-hay="联瑞新材 联瑞新材 688300 AI PCB 与覆铜板(CCL)产业链深挖 先进封装 (Advanced Packaging) 产业链深挖">
+<div class="thead">
+<span class="tname">联瑞新材</span>
+<span class="tcode">688300</span>
+<span class="tcount">被 2 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
 </div></div>
 <div class="trow" data-hay="铭普光磁 铭普光磁 002902 AI 光模块与电源磁产业链深挖 铭普光磁(002902)单公司深挖">
 <div class="thead">
@@ -507,6 +597,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/大硅片产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体大硅片产业链深挖</span><span class="tind">半导体材料 · 大硅片(12吋)</span><span class="tdate">2026-06-25</span></a>
 </div></div>
+<div class="trow" data-hay="三花智控 三花智控 002050 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">三花智控</span>
+<span class="tcode">002050</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="东富龙 东富龙 300171 色谱分离纯化产业链深挖">
 <div class="thead">
 <span class="tname">东富龙</span>
@@ -515,6 +614,33 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/色谱分离纯化产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">色谱分离纯化产业链深挖</span><span class="tind">生命科学上游 · 色谱纯化</span><span class="tdate">2026-06-24</span></a>
+</div></div>
+<div class="trow" data-hay="中恒电气 中恒电气 002364 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">中恒电气</span>
+<span class="tcode">002364</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="中石科技 中石科技 300684 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">中石科技</span>
+<span class="tcode">300684</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="中航光电 中航光电 002179 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">中航光电</span>
+<span class="tcode">002179</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="中船特气 中船特气 688146 工业气体产业链深挖">
 <div class="thead">
@@ -543,6 +669,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
 </div></div>
+<div class="trow" data-hay="仕佳光子 仕佳光子 688313 光芯片与激光器产业链深挖">
+<div class="thead">
+<span class="tname">仕佳光子</span>
+<span class="tcode">688313</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="兆易创新 兆易创新 603986 内存接口 / HBM 配套产业链深挖">
 <div class="thead">
 <span class="tname">兆易创新</span>
@@ -552,23 +687,14 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/内存接口HBM配套产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">内存接口 / HBM 配套产业链深挖</span><span class="tind">AI 内存带宽 · 接口芯片/HBM 配套</span><span class="tdate">2026-06-25</span></a>
 </div></div>
-<div class="trow" data-hay="光迅科技 光迅科技 002281 AI 光模块与电源磁产业链深挖">
+<div class="trow" data-hay="光库科技 光库科技 300620 光芯片与激光器产业链深挖">
 <div class="thead">
-<span class="tname">光迅科技</span>
-<span class="tcode">002281</span>
+<span class="tname">光库科技</span>
+<span class="tcode">300620</span>
 <span class="tcount">被 1 篇指向</span>
 </div>
 <div class="tlist">
-<a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
-</div></div>
-<div class="trow" data-hay="兴森科技 兴森科技 002436 先进封装 (Advanced Packaging) 产业链深挖">
-<div class="thead">
-<span class="tname">兴森科技</span>
-<span class="tcode">002436</span>
-<span class="tcount">被 1 篇指向</span>
-</div>
-<div class="tlist">
-<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="凯盛科技 凯盛科技 600552 玻璃载板 / TGV 产业链深挖">
 <div class="thead">
@@ -606,6 +732,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/广钢vs华特(地缘氦气)深挖.html"><span class="ttype 对比深挖">对比深挖</span><span class="tttl">广钢气体 vs 华特气体 — 地缘/氦气对比深挖</span><span class="tind">工业气体 · 氦气/电子特气</span><span class="tdate">2026-06-24</span></a>
 </div></div>
+<div class="trow" data-hay="南亚新材 南亚新材 688519 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">南亚新材</span>
+<span class="tcode">688519</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="可立克 可立克 002782 AI 光模块与电源磁产业链深挖">
 <div class="thead">
 <span class="tname">可立克</span>
@@ -614,6 +749,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
+</div></div>
+<div class="trow" data-hay="同飞股份 同飞股份 300990 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">同飞股份</span>
+<span class="tcode">300990</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="圣诺生物 圣诺生物 688117 CRO 产业链深挖">
 <div class="thead">
@@ -650,6 +794,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/生命科学上游试剂产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">生命科学上游试剂产业链深挖</span><span class="tind">生命科学上游 · 试剂/酶</span><span class="tdate">2026-06-23</span></a>
+</div></div>
+<div class="trow" data-hay="宏和科技 宏和科技 603256 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">宏和科技</span>
+<span class="tcode">603256</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="容大感光 容大感光 300576 半导体光刻胶产业链深挖">
 <div class="thead">
@@ -705,6 +858,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/玻璃载板TGV产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">玻璃载板 / TGV 产业链深挖</span><span class="tind">先进封装 · 下一代基板(玻璃载板/TGV)</span><span class="tdate">2026-06-26</span></a>
 </div></div>
+<div class="trow" data-hay="意华股份 意华股份 002897 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">意华股份</span>
+<span class="tcode">002897</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="斯达半导 斯达半导 603290 碳化硅(SiC)产业链深挖">
 <div class="thead">
 <span class="tname">斯达半导</span>
@@ -713,6 +875,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/碳化硅SiC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">碳化硅(SiC)产业链深挖</span><span class="tind">第三代半导体 · SiC衬底+器件模块+设备</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="新宙邦 新宙邦 300037 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">新宙邦</span>
+<span class="tcode">300037</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="新易盛 新易盛 300502 AI 光模块与电源磁产业链深挖">
 <div class="thead">
@@ -740,6 +911,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/碳化硅SiC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">碳化硅(SiC)产业链深挖</span><span class="tind">第三代半导体 · SiC衬底+器件模块+设备</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="易事特 易事特 300376 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">易事特</span>
+<span class="tcode">300376</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="昭衍新药 昭衍新药 603127 CRO 产业链深挖">
 <div class="thead">
@@ -795,6 +975,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/AI光模块与电源磁产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 光模块与电源磁产业链深挖</span><span class="tind">AI 数据中心 · 光模块+光器件+电源磁</span><span class="tdate">2026-06-26</span></a>
 </div></div>
+<div class="trow" data-hay="欧陆通 欧陆通 300870 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">欧陆通</span>
+<span class="tcode">300870</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="正帆科技 正帆科技 688596 半导体设备零部件产业链深挖（含离子注入）">
 <div class="thead">
 <span class="tname">正帆科技</span>
@@ -813,6 +1002,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/色谱分离纯化产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">色谱分离纯化产业链深挖</span><span class="tind">生命科学上游 · 色谱纯化</span><span class="tdate">2026-06-24</span></a>
 </div></div>
+<div class="trow" data-hay="沃尔核材 沃尔核材 002130 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">沃尔核材</span>
+<span class="tcode">002130</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="沃格光电 沃格光电 603773 玻璃载板 / TGV 产业链深挖">
 <div class="thead">
 <span class="tname">沃格光电</span>
@@ -821,6 +1019,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/玻璃载板TGV产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">玻璃载板 / TGV 产业链深挖</span><span class="tind">先进封装 · 下一代基板(玻璃载板/TGV)</span><span class="tdate">2026-06-26</span></a>
+</div></div>
+<div class="trow" data-hay="沪电股份 沪电股份 002463 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">沪电股份</span>
+<span class="tcode">002463</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="海光信息 海光信息 688041 AI 半导体产业链总览深挖(A 股)">
 <div class="thead">
@@ -831,15 +1038,6 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/AI半导体产业链总览深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI 半导体产业链总览深挖(A 股)</span><span class="tind">AI 半导体 · 整链总览/索引</span><span class="tdate">2026-06-25</span></a>
 </div></div>
-<div class="trow" data-hay="深南电路 深南电路 002916 先进封装 (Advanced Packaging) 产业链深挖">
-<div class="thead">
-<span class="tname">深南电路</span>
-<span class="tcode">002916</span>
-<span class="tcount">被 1 篇指向</span>
-</div>
-<div class="tlist">
-<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
-</div></div>
 <div class="trow" data-hay="清溢光电 清溢光电 688138 掩膜版(光罩)产业链深挖">
 <div class="thead">
 <span class="tname">清溢光电</span>
@@ -848,6 +1046,42 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/掩膜版产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">掩膜版(光罩)产业链深挖</span><span class="tind">半导体材料 · 掩膜版/光罩</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow" data-hay="炬光科技 炬光科技 688167 光芯片与激光器产业链深挖">
+<div class="thead">
+<span class="tname">炬光科技</span>
+<span class="tcode">688167</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="生益电子 生益电子 688183 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">生益电子</span>
+<span class="tcode">688183</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="申菱环境 申菱环境 301018 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">申菱环境</span>
+<span class="tcode">301018</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="电连技术 电连技术 300679 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">电连技术</span>
+<span class="tcode">300679</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="百普赛斯 百普赛斯 301080 生命科学上游试剂产业链深挖">
 <div class="thead">
@@ -858,6 +1092,24 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/生命科学上游试剂产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">生命科学上游试剂产业链深挖</span><span class="tind">生命科学上游 · 试剂/酶</span><span class="tdate">2026-06-23</span></a>
 </div></div>
+<div class="trow" data-hay="盛弘股份 盛弘股份 300693 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">盛弘股份</span>
+<span class="tcode">300693</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="神宇股份 神宇股份 300563 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">神宇股份</span>
+<span class="tcode">300563</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="神工股份 神工股份 688233 半导体大硅片产业链深挖">
 <div class="thead">
 <span class="tname">神工股份</span>
@@ -866,6 +1118,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/大硅片产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体大硅片产业链深挖</span><span class="tind">半导体材料 · 大硅片(12吋)</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow" data-hay="科华数据 科华数据 002335 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">科华数据</span>
+<span class="tcode">002335</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="立昂微 立昂微 605358 半导体大硅片产业链深挖">
 <div class="thead">
@@ -876,6 +1137,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/大硅片产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体大硅片产业链深挖</span><span class="tind">半导体材料 · 大硅片(12吋)</span><span class="tdate">2026-06-25</span></a>
 </div></div>
+<div class="trow" data-hay="立讯精密 立讯精密 002475 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">立讯精密</span>
+<span class="tcode">002475</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="精测电子 精测电子 300567 半导体量测/检测设备产业链深挖">
 <div class="thead">
 <span class="tname">精测电子</span>
@@ -885,15 +1155,6 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/量测检测设备产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体量测/检测设备产业链深挖</span><span class="tind">半导体前道设备 · 量测/检测</span><span class="tdate">2026-06-25</span></a>
 </div></div>
-<div class="trow" data-hay="联瑞新材 联瑞新材 688300 先进封装 (Advanced Packaging) 产业链深挖">
-<div class="thead">
-<span class="tname">联瑞新材</span>
-<span class="tcode">688300</span>
-<span class="tcount">被 1 篇指向</span>
-</div>
-<div class="tlist">
-<a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
-</div></div>
 <div class="trow" data-hay="聚辰股份 聚辰股份 688123 内存接口 / HBM 配套产业链深挖">
 <div class="thead">
 <span class="tname">聚辰股份</span>
@@ -902,6 +1163,24 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/内存接口HBM配套产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">内存接口 / HBM 配套产业链深挖</span><span class="tind">AI 内存带宽 · 接口芯片/HBM 配套</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow" data-hay="胜宏科技 胜宏科技 300476 AI PCB 与覆铜板(CCL)产业链深挖">
+<div class="thead">
+<span class="tname">胜宏科技</span>
+<span class="tcode">300476</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/覆铜板CCL与AIPCB产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">AI PCB 与覆铜板(CCL)产业链深挖</span><span class="tind">AI 硬件 · 覆铜板CCL+高速PCB+上游玻纤铜箔</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="腾景科技 腾景科技 688195 光芯片与激光器产业链深挖">
+<div class="thead">
+<span class="tname">腾景科技</span>
+<span class="tcode">688195</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="至纯科技 至纯科技 603690 半导体清洗/涂胶显影/离子注入设备产业链深挖">
 <div class="thead">
@@ -929,6 +1208,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/清洗涂显离子注入设备产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">半导体清洗/涂胶显影/离子注入设备产业链深挖</span><span class="tind">半导体前道设备 · 清洗/涂显/注入</span><span class="tdate">2026-06-25</span></a>
+</div></div>
+<div class="trow" data-hay="英杰电气 英杰电气 300820 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">英杰电气</span>
+<span class="tcode">300820</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="药明康德 药明康德 603259 CRO 产业链深挖">
 <div class="thead">
@@ -975,6 +1263,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/先进封装产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">先进封装 (Advanced Packaging) 产业链深挖</span><span class="tind">半导体封测 · 先进封装/载板/设备/材料</span><span class="tdate">2026-06-24</span></a>
 </div></div>
+<div class="trow" data-hay="银轮股份 银轮股份 002126 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">银轮股份</span>
+<span class="tcode">002126</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="长信科技 长信科技 300088 玻璃载板 / TGV 产业链深挖">
 <div class="thead">
 <span class="tname">长信科技</span>
@@ -983,6 +1280,15 @@ footer.site .wrap{padding:24px 22px 40px}
 </div>
 <div class="tlist">
 <a href="pages/玻璃载板TGV产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">玻璃载板 / TGV 产业链深挖</span><span class="tind">先进封装 · 下一代基板(玻璃载板/TGV)</span><span class="tdate">2026-06-26</span></a>
+</div></div>
+<div class="trow" data-hay="长光华芯 长光华芯 688048 光芯片与激光器产业链深挖">
+<div class="thead">
+<span class="tname">长光华芯</span>
+<span class="tcode">688048</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/光芯片与激光器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">光芯片与激光器产业链深挖</span><span class="tind">光通信 apex · 高速光芯片+调制器+激光器</span><span class="tdate">2026-06-27</span></a>
 </div></div>
 <div class="trow" data-hay="长川科技 长川科技 300604 先进封装 (Advanced Packaging) 产业链深挖">
 <div class="thead">
@@ -1029,6 +1335,15 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/碳化硅SiC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">碳化硅(SiC)产业链深挖</span><span class="tind">第三代半导体 · SiC衬底+器件模块+设备</span><span class="tdate">2026-06-27</span></a>
 </div></div>
+<div class="trow" data-hay="飞荣达 飞荣达 300602 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">飞荣达</span>
+<span class="tcode">300602</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="香农芯创 香农芯创 300475 内存接口 / HBM 配套产业链深挖">
 <div class="thead">
 <span class="tname">香农芯创</span>
@@ -1047,6 +1362,33 @@ footer.site .wrap{padding:24px 22px 40px}
 <div class="tlist">
 <a href="pages/碳化硅SiC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">碳化硅(SiC)产业链深挖</span><span class="tind">第三代半导体 · SiC衬底+器件模块+设备</span><span class="tdate">2026-06-27</span></a>
 </div></div>
+<div class="trow" data-hay="高澜股份 高澜股份 300499 液冷散热产业链深挖">
+<div class="thead">
+<span class="tname">高澜股份</span>
+<span class="tcode">300499</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/液冷散热产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">液冷散热产业链深挖</span><span class="tind">AI 散热 · CDU+冷板+冷却液+TIM</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="麦格米特 麦格米特 002851 服务器电源 / HVDC 产业链深挖">
+<div class="thead">
+<span class="tname">麦格米特</span>
+<span class="tcode">002851</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/服务器电源HVDC产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">服务器电源 / HVDC 产业链深挖</span><span class="tind">AI 供电 · 服务器电源PSU+800V HVDC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
+<div class="trow" data-hay="鼎通科技 鼎通科技 688668 高速铜连接与连接器产业链深挖">
+<div class="thead">
+<span class="tname">鼎通科技</span>
+<span class="tcode">688668</span>
+<span class="tcount">被 1 篇指向</span>
+</div>
+<div class="tlist">
+<a href="pages/高速铜连接与连接器产业链深挖.html"><span class="ttype 产业链">产业链</span><span class="tttl">高速铜连接与连接器产业链深挖</span><span class="tind">AI 互联 · 224G高速连接器+铜缆+AEC</span><span class="tdate">2026-06-27</span></a>
+</div></div>
 <div class="trow" data-hay="龙图光罩 龙图光罩 688721 掩膜版(光罩)产业链深挖">
 <div class="thead">
 <span class="tname">龙图光罩</span>
@@ -1062,15 +1404,19 @@ footer.site .wrap{padding:24px 22px 40px}
 <script>
 (function(){
   var q=document.getElementById('search'),empty=document.getElementById('empty');
+  var clr=document.getElementById('clear');
   var rows=[].slice.call(document.querySelectorAll('.trow'));
-  q.addEventListener('input',function(){
+  function apply(){
     var t=(q.value||'').toLowerCase().trim();var shown=0;
+    if(clr)clr.classList.toggle('on',!!(q.value||'').length);
     rows.forEach(function(r){
       var on=!t||r.getAttribute('data-hay').toLowerCase().indexOf(t)>=0;
       r.style.display=on?'':'none';if(on)shown++;
     });
     empty.style.display=shown?'none':'block';
-  });
+  }
+  q.addEventListener('input',apply);
+  if(clr)clr.addEventListener('click',function(){q.value='';q.focus();apply();});
 })();
 </script>
 </body></html>
