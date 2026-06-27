@@ -1,0 +1,199 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>半导体设备零部件产业链深挖（含离子注入）</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+#search{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">半导体 · 半导体设备 · 精密零部件+离子注入+稀散金属</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">富创精密 688409</span><span class="chip">新莱应材 300260</span><span class="chip">正帆科技 688596</span><span class="chip">先导基电 600641</span><span class="chip hot">江丰电子 002182</span></div>
+<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：富创精密</div><p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>
+<h1>半导体设备零部件产业链深挖（含离子注入设备）</h1>
+<blockquote>serenity-skill 产业链卡点扫描。研究日期:2026-06-26。数据 Eastmoney/腾讯一手口径(财务/分产品/股东/资产负债/研发)+实时行情。仅研究支持,非买卖建议。 缘起:调研 600641「先导基电」——它是先导集团入主原万业企业后的重组平台(凯世通离子注入+Compart 气体部件+稀散金属材料),顺这条"设备零部件"链来排,并诚实定位先导基电。</blockquote>
+<h2>一句话判断</h2>
+<p>国产半导体设备(北方华创/中微/盛美…)崛起后,<strong>下一个卡点往下沉到"精密零部件"</strong>——腔体、气体管路、精密机加件、真空阀件。<strong>这一层是真国产替代卡点,但 FY2025 整层在利润低谷:富创(零部件龙头)微亏、正帆利润 -74%、江丰微亏,只有新莱稳健盈利(净 5.8%)</strong>——典型"卡点≠当下赚钱"(以价换量+重资产扩产)。<strong>更上游的离子注入设备(AMAT/Axcelis 全球 ~95% 垄断)国产几乎空白</strong>,唯一规模化推进者凯世通<strong>埋在先导基电这个"金属材料+地产+设备"的亏损拼盘里、且主要是光伏离子注入</strong>。所以头号卡点给<strong>富创精密(零部件国产龙头,做实)</strong>;离子注入层<strong>不设 🎯</strong>(国产半导体离子注入尚未做实);先导基电本身<strong>明确降级</strong>。</p>
+<h2>一、先排层级(按稀缺度 × 国产做实度 × 质地)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>环节</th><th>全球在位者</th><th>中国地位</th><th>一句话</th></tr></thead><tbody><tr><td>1</td><td><strong>离子注入设备</strong></td><td>AMAT / Axcelis ~95%</td><td><strong>凯世通(先导基电内)+中科信(未上市)</strong></td><td>最稀缺,但国产半导体几乎空白;凯世通主要做光伏离子注入</td></tr><tr><td>2</td><td><strong>半导体设备精密零部件</strong>(腔体/气体管路/精密机加/真空阀件)</td><td>MKS/Ichor/Ferrotec/UCT</td><td><strong>富创/新莱/正帆国产替代</strong></td><td>真卡点;设备国产化带动,但全层利润低谷</td></tr><tr><td>3</td><td><strong>稀散金属/蒸发材料/靶材</strong></td><td>JX/霍尼韦尔</td><td>江丰(靶材)、先导薄膜/稀材(先导基电内)</td><td>材料层,走量低毛利</td></tr><tr><td>4</td><td>离子注入耗材/应用(光伏/半导体)</td><td>—</td><td>凯世通光伏离子注入</td><td>应用端,光伏先放量</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> 设备国产化的下一个卡点是<strong>精密零部件(第 2 层)</strong>——海外 MKS/Ichor/UCT 把持,国产富创/新莱/正帆在替代,是"卖铲子的铲子"。离子注入(第 1 层)最稀缺但国产未兑现。</p>
+<h2>二、5 个最值得优先研究的标的</h2>
+<h3>1. 富创精密(688409)🎯——半导体设备精密零部件国产龙头</h3>
+<ul><li><strong>卡住的环节</strong>:半导体设备<strong>结构件/腔体/气体管路/精密机加模组</strong>——供北方华创、中微、盛美、AMAT、Lam。是国产设备厂背后的"零部件平台",<strong>国产替代最直接卡点</strong>。</li><li><strong>证据</strong>:FY2025 营收 <strong>35.43 亿 +17%</strong>(零部件里规模最大),客户覆盖国内外主力设备厂;沈阳+南通+北京多基地扩产。</li><li><strong>排序理由</strong>:零部件层做实的国产龙头(规模+客户份额),是这条链唯一"卡点已落到真实收入/份额"的名字。</li><li><strong>主要风险</strong>:<strong>FY2025 归母 -0.09 亿(微亏)、净利 -0.5%、毛利 22.2%</strong>——重资产扩产+价格压力致利润低谷;<strong>PB 18.6x、PE 千倍、市值 841 亿</strong>估值极高;依赖国产设备厂资本开支节奏。</li></ul>
+<h3>2. 新莱应材(300260)——零部件里最稳健盈利</h3>
+<ul><li><strong>卡住的环节</strong>:洁净流体/真空管阀件、超高纯管路(半导体+食品+生物医药三栖)。FY2025 营收 <strong>29.98 亿 +5%、归母 1.75 亿、净 5.8%、ROE 8.7%(全层最高)、毛 24.8%</strong>;PB 17.6x、PE 214x、市值 379 亿。</li><li><strong>排序理由</strong>:零部件层里<strong>唯一持续真盈利</strong>(其余在亏/利润崩),现金流与 ROE 最好。<strong>主要风险</strong>:半导体占比需提升(食品/医药稀释纯度);估值已高(PB17.6)。</li></ul>
+<h3>3. 正帆科技(688596)——半导体工艺介质供应系统</h3>
+<ul><li><strong>卡住的环节</strong>:<strong>电子工艺介质供应系统(大宗/特种气体、前驱体输送)+ 零部件</strong>——fab/设备的气体化学品"血管"。FY2025 营收 <strong>49.16 亿 -10%、归母 1.36 亿(-74%)、净 2.8%、毛 21%</strong>;PE 217x、市值 165 亿。</li><li><strong>排序理由</strong>:卡在 fab 介质输送系统(贴近工艺气体卡点),规模大;<strong>主要风险</strong>:利润骤降 74%、营收下滑、净利仅 2.8%——系统集成低毛利、订单周期性。</li></ul>
+<h3>4. 先导基电(600641)——本次锚点,明确降级(重组拼盘、亏损)</h3>
+<ul><li><strong>它是什么</strong>:先导集团(朱世会,<strong>先导汇芯持股 24.27%</strong>)入主原万业企业后改名的平台。<strong>FY2025 分部:稀散金属材料(铋等)13.2 亿(71%)+ 专用设备(凯世通离子注入+Compart 气体部件)3.48 亿(19%)+ 残留房地产 1.25 亿(7%)</strong>;境外收入 5.5 亿(30%,Compart 系)。</li><li><strong>为什么降级</strong>:营收 18.52 亿 <strong>+218%(纯靠注入并表)但归母 -1.27 亿(亏)、毛利仅 19.7%、净利 -12.6%、ROE -1.55%</strong>;<strong>存货高达 48 亿(金属囤货,占总资产 39%)</strong>;研发占 12.3%;PB 4.4、市值 362 亿、PE 为负。</li><li><strong>结论</strong>:真正稀缺的半导体资产(凯世通离子注入)<strong>只占 19%、且主要是光伏离子注入,被埋在"稀散金属+地产+设备"的亏损拼盘里</strong>。研究价值是"看清这是重组拼盘,不是纯卡点"。离子注入若在半导体放量、或拼盘减亏聚焦,才需重估。</li></ul>
+<h3>5. 江丰电子(002182)——靶材龙头+零部件(已在靶材链 🎯)</h3>
+<ul><li><strong>卡住的环节</strong>:超高纯溅射靶材(半导体)+ 精密零部件。FY2025 营收 <strong>99.12 亿 +10%(规模最大)但归母 -0.19 亿(微亏)、毛 10.6%、净 -0.3%</strong>;PB 2.5x、市值 133 亿。</li><li><strong>排序理由</strong>:靶材国产龙头,零部件是第二曲线;<strong>走量但毛利仅 10.6% 致微亏</strong>——靶材是低毛利材料卡点。详见《靶材产业链深挖》。</li></ul>
+<h2>三、反方 / 市场没看清</h2>
+<ol><li><strong>卡点层正在亏钱</strong>:零部件是真国产替代卡点,但 FY2025 富创微亏、正帆 -74%、江丰微亏——以价换量+扩产期,别把"卡点"当"当下高盈利"(新莱是唯一例外)。</li><li><strong>离子注入国产是"愿景非现实"</strong>:AMAT/Axcelis 垄断 95%,凯世通主要光伏离子注入,半导体离子注入尚未规模兑现——故本链离子注入层不设 🎯。</li><li><strong>先导基电是重组拼盘</strong>:71% 是稀散金属(铋)、含残留地产、存货 48 亿囤货、整体亏损——不是纯半导体卡点,PB4.4 里大半是金属+地产。</li><li><strong>估值普遍极端</strong>:富创 PB18.6/PE 千倍、新莱 PB17.6、正帆 PE217——零部件赛道熔涨,估值风险第一。</li></ol>
+<h2>四、下一步</h2>
+<ol><li><strong>富创</strong>:毛利/净利能否随规模回升(扩产摊薄)、各大设备厂份额、海外(AMAT/Lam)放量;2. <strong>新莱</strong>:半导体占比提升、ROE 可持续性;3. <strong>正帆</strong>:利润下滑原因、介质系统订单与气体卡点协同;4. <strong>先导基电</strong>:凯世通半导体离子注入验证/订单、稀散金属周期与存货跌价、拼盘是否聚焦半导体、Compart 气体部件单列。</li></ol>
+<hr>
+<p>*关联:《靶材产业链深挖》(江丰/稀散金属)、《清洗涂显离子注入设备产业链深挖》(离子注入凯世通)、《AI 半导体产业链总览》。研究判断,非买卖建议。数据 2026-06-26 一手口径;凯世通半导体进展/Compart 口径/分部毛利需 PDF·互动易核实。*</p>
+<div class="related"><h3>相关分析</h3><a href="靶材产业链深挖.html">半导体靶材(溅射靶材)产业链深挖 →</a><a href="清洗涂显离子注入设备产业链深挖.html">半导体清洗/涂胶显影/离子注入设备产业链深挖 →</a><a href="AI半导体产业链总览深挖.html">AI 半导体产业链总览深挖(A 股) →</a></div>
+</article>
+</body></html>
