@@ -1,0 +1,227 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>高端二氧化碳(食品级/电子级 CO₂)产业链深挖</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">化工新材料 · 工业气体 · 食品级/电子级 CO₂</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">凯美特气 002549</span><span class="chip">金宏气体 688106</span><span class="chip">杭氧股份 002430</span><span class="chip">侨源股份 301286</span><span class="chip">和远气体 002971</span><span class="chip">华特气体 688268</span><span class="chip hot">广钢气体 688548</span></div>
+<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：凯美特气</div><p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>
+<h1>高端二氧化碳(食品级/电子级 CO₂)产业链深挖</h1>
+<blockquote>用 serenity-skill 方法完成的产业链卡点扫描。研究日期:2026-06-28。 财务/定位数据来自交易所·巨潮口径的东方财富 F10 主营构成与年报核心题材,标注证据等级。 仅为公开资料的研究支持与排序,非买卖建议。</blockquote>
+<p>这道题的诚实答案先说在前面:<strong>A 股严格意义上没有"高端 CO₂ 龙头"——只有一家纯标(凯美特气)+ 一家兼业(金宏气体),其余都是路过。</strong> 而且最高端的那一段(电子级 5N+ CO₂)连这两家自己都还没赚到钱。把"高端 CO₂"想象成一个有大龙头的赛道,本身就是个误区:它在 A 股是一个<strong>很小、且被外资垄断高端段</strong>的细分。</p>
+<hr>
+<h2>先把"二氧化碳"切清楚(不切就会买错)</h2>
+<p>CO₂ 是个被笼统打包的化学式,至少要切成三段,卡点完全不同:</p>
+<div class="table-wrap"><table><thead><tr><th>段位</th><th>纯度</th><th>应用</th><th>A股可投性</th><th>真卡点</th></tr></thead><tbody><tr><td>工业级/大宗</td><td>99–99.9%</td><td>焊接、保鲜、CCUS、油田驱油</td><td>多家做但都不赚钱</td><td>没卡点,商品化</td></tr><tr><td><strong>食品级/医用级</strong></td><td>99.9%+ 多次精馏</td><td>可乐/百事/啤酒碳酸化、灭菌、干冰</td><td><strong>凯美特一家通吃</strong></td><td>客户认证 + 长协气源</td></tr><tr><td><strong>电子级(5N–6N+)</strong></td><td>99.999%+,痕量金属/水/氧/烃</td><td>半导体清洗、<strong>超临界 CO₂ 清洗</strong>、光刻显影稀释、面板/OLED</td><td><strong>A股都还没做实</strong></td><td>提纯工艺 + 顶级 fab 认证</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> "高端"通常指中间两段,但<strong>真正的高端卡点在电子级</strong>——全球电子级 CO₂ 仍由林德、法液空、空气产品、住友、大阳日酸把持,<strong>A 股目前没有一家把电子级 CO₂ 单列收入、且具名供货顶级 fab</strong>。能讨论的就两家:凯美特气(纯标)、金宏气体(兼业)。</p>
+<hr>
+<h2>一、先排卡点层级(按稀缺度 × 战略价值 × A股可投性)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>环节</th><th>稀缺度</th><th>A股做实者</th><th>一句话</th></tr></thead><tbody><tr><td><strong>1</strong></td><td><strong>石化尾气长协气源(回收型)</strong></td><td><strong>极高</strong>(中石化系尾气网络)</td><td><strong>凯美特(独家)</strong></td><td>整链最硬:5 个基地围着中石化炼厂,这张网别人买不到</td></tr><tr><td><strong>2</strong></td><td><strong>电子级 5N+ CO₂ 提纯 + 顶级 fab 认证</strong></td><td><strong>极高</strong>(全球外资垄断)</td><td><strong>没人做实</strong></td><td>真高端卡点;凯美特参编国标但还在亏,金宏 1000 吨/年募投在建</td></tr><tr><td><strong>3</strong></td><td><strong>食品/医用级高纯 CO₂ 客户认证</strong></td><td>高(可乐/百事系认证)</td><td><strong>凯美特(冠军)</strong></td><td>看着不性感,却是赚钱主业,毛利 39% 在气体里属顶端</td></tr><tr><td><strong>4</strong></td><td><strong>半导体客户网络(电子大宗+特气)</strong></td><td>高</td><td>金宏(中芯/海力士/华润微/华天具名)</td><td>客户网络比单一产品力更值钱,但 CO₂ 不是其核心品种</td></tr><tr><td>5</td><td>超临界 CO₂ 系统集成(晶圆清洗)</td><td>高</td><td>A股几乎为零</td><td>设备+气体一体化,海外主战场</td></tr><tr><td>6</td><td>区域型大宗 CO₂ / 副产气</td><td>低</td><td>杭氧/侨源/和远</td><td>毛利 16–18%,商品化,不算高端</td></tr><tr><td>7</td><td>CCUS / 碳捕捉(政策驱动大宗)</td><td>低–中</td><td>多家蹭题材</td><td>是"用 CO₂"的逻辑,与"做高端 CO₂"无关</td></tr></tbody></table></div>
+<p><strong>最重要的结论:</strong> 最硬的两层(气源 + 电子级提纯)A 股只有"一家半"玩家。凯美特是 CO₂ 纯标 + 气源垄断者,但电子级 CO₂ 还没赚到钱;金宏半导体客户网络在,但 CO₂ 只是它众多电子气体里的一个 SKU、且整体泛半导体板块 2025 在下滑。<strong>所以"龙头候选只有凯美特,金宏算半个,其余都不沾"。</strong></p>
+<hr>
+<h2>二、5 个最值得优先研究的标的</h2>
+<h3>1. 凯美特气(002549)— A 股 CO₂ 唯一纯标,食品级现金牛 + 电子级期权 🎯</h3>
+<ul><li><strong>卡住的环节</strong>:① 石化尾气回收(中石化系长协气源,岳阳/安庆/惠州/泉州/儋州 5 基地围着炼厂);② 食品级 CO₂ 客户认证(可口可乐 + 百事策略供应商);③ 电子级 CO₂ 国标编制方。</li><li><strong>产业链位置</strong>:第 1+3 层(气源 + 食品级),并延伸到第 2 层(电子级在爬坡)。</li><li><strong>排序原因</strong>:<strong>A 股唯一把 CO₂ 当主业的公司</strong>——2025 二氧化碳收入 <strong>¥2.17 亿、占总营收 34.6%、毛利率 39.12%</strong>(2024:¥1.89 亿 / 32.17% / 36.53%,<strong>收入 +14.6%、毛利率从 36.5% 升到 39.1%</strong>,毛利持续走高是稀缺在兑现的硬信号)。<strong>参与编制《电子级二氧化碳》《电子级一氧化碳》两项国标</strong>(标准制定者≠跟随者);光刻气另获 ASML 子公司 Cymer + 日本 GIGAPHOTON + Coherent 认证。<strong>证据强(F10 主营构成 + 年报核心题材)</strong>。</li><li><strong>主要风险</strong>:① 总营收仅 ¥6.25 亿,<strong>盘子小</strong>;② <strong>特种气体板块仍在亏钱</strong>(2025 收入 ¥1,293 万、毛利率 <strong>-39.67%</strong>;2024 是 <strong>-169.33%</strong>,亏损收窄但远未盈利)——电子级 CO₂/电子特气未规模盈利;③ 氢气、燃料类合计占收入近 60%,<strong>CO₂ 故事被稀释</strong>;④ 最新 PE/PB 需查(本轮未取得)。</li></ul>
+<h3>2. 金宏气体(688106)— 半导体客户具名最实,但 CO₂ 不是它的主线</h3>
+<ul><li><strong>卡住的环节</strong>:① 电子大宗气体 + 超纯氨/正硅酸乙酯/八氟环丁烷等特气;② 半导体客户网络(年报<strong>具名中芯国际、海力士、矽品科技、华天科技、华润微电子、北方集成电路、积塔、联芯</strong>);③ IPO 募投含 <strong>5N(99.999%)高纯 CO₂ 1,000 吨/年产能</strong>。</li><li><strong>产业链位置</strong>:第 4 层(电子气体大客户网络),延伸到第 2 层(5N CO₂ 募投)。</li><li><strong>排序原因</strong>:行业内<strong>唯一专注电子气体研发的国家企业技术中心</strong>,具名顶级 fab 客户是 A 股气体公司里最实的——这正是 5N CO₂ 一旦量产能直接对接的渠道。2025 现场制气及租金 ¥3.57 亿、<strong>毛利 54.16%</strong>(护城河最深一块)。<strong>证据强(F10 + 年报核心题材)</strong>。</li><li><strong>主要风险(重点划线)</strong>:① <strong>泛半导体板块 2025 收入 ¥6.35 亿、同比 -9.8%、毛利率从 41.62% 降到 38.27%</strong>——客户在,但收入和毛利率双降,是明显红旗;② 特种气体 2025 收入 ¥8.91 亿、<strong>同比 -7.4%、毛利率从 27.69% 降到 23.40%</strong>;③ <strong>5N CO₂ 实际收入未单列</strong>,仍是"在建产能 + 期权"阶段;④ 本质是"电子气体平台",CO₂ 只是其中一个 SKU——<strong>"高端 CO₂ 龙头"叫它有点勉强</strong>。</li></ul>
+<h3>3. 杭氧股份(002430)— 大宗工业气体绝对龙头,但 CO₂ 不是"高端"</h3>
+<ul><li><strong>卡住的环节</strong>:空分设备 + 大宗工业气体运营(氧氮氩 + 副产 CO₂),全国规模第一。</li><li><strong>产业链位置</strong>:第 6 层(大宗气体),<strong>不在高端 CO₂ 那条线</strong>。</li><li><strong>排序原因</strong>:出现的唯一理由是<strong>体量最大</strong>——2025 总营收 ¥150.8 亿、气体业务 ¥92.07 亿(占 61%)。若未来电子级 CO₂ 大客户切到国产,它的现场制气网络是潜在跳板。<strong>证据强(年报)</strong>。</li><li><strong>主要风险(重点划线)</strong>:① <strong>气体业务毛利率仅 16.45%</strong>,远低于凯美特 CO₂ 的 39%,典型大宗逻辑;② <strong>CO₂ 收入未单独披露</strong>,大概率混在大宗里——<strong>它不是 CO₂ 龙头</strong>;③ 盈利受空分设备订单与能源价格波动影响。<strong>它在本题里是 baseline 大宗对照组,不是答案。</strong></li></ul>
+<h3>4. 侨源股份(301286)— 西南区域氧氮氩,毛利结构最像"特气利基",但 CO₂ 未单列</h3>
+<ul><li><strong>卡住的环节</strong>:西南(四川/重庆)空分气体 + 食品级氧氮氩;氧气毛利率约 40%(2024 39.77%、2025H1 40.70%),在大宗里属高毛利异常值。</li><li><strong>产业链位置</strong>:第 6 层(区域大宗,带食品/医用利基)。</li><li><strong>排序原因</strong>:<strong>毛利率结构是这批里最像高端的</strong>(2025 主营毛利 32.37%),区域寡头有定价权。<strong>证据强(F10)</strong>。</li><li><strong>主要风险</strong>:① <strong>CO₂ 不是主业、占比未披露</strong>,放进"高端 CO₂"题里只能算外围;② 区域型规模有上限(2025 总营收 ¥10.77 亿、归母走平);③ 高毛利能否维持取决于西南电力/竞争格局。<strong>像"高端"的不是它的 CO₂,是它的氧气利基。降级,但值得跟踪。</strong></li></ul>
+<h3>5. 和远气体(002971)— 大宗为主,放进来是为了对照"什么不是高端"</h3>
+<ul><li><strong>卡住的环节</strong>:湖北/华中区域工业气体销售,2025 气体销售 ¥15.72 亿、占收入 94.47%。</li><li><strong>产业链位置</strong>:第 6 层(区域大宗),<strong>离"高端"最远的一个</strong>。</li><li><strong>排序原因</strong>:作为对照——气体销售毛利率<strong>仅 18.41%</strong>(2024 18.46%、2021 还有 26.5%,<strong>毛利在结构性下移</strong>);CO₂ 完全未单列。<strong>证据强(F10)</strong>。</li><li><strong>主要风险</strong>:① 区域型+大宗+毛利下行,几乎对应所有"不是高端"的特征;② 把它当"CO₂ 标的"是误读。<strong>它是对照组,不是研究优先名单。</strong> 若只研究 4 个,可把它换成凯美特单公司深挖。</li></ul>
+<hr>
+<h2>三、特意往后排 / 排除的"热门"方向</h2>
+<ul><li><strong>华特气体(688268)——明确排除:它没有高端 CO₂,一点都没有。</strong> 年报/F10 全产品线里<strong>没有 CO₂ 这个品种</strong>;核心题材里"二氧化碳"全文只出现一次,还是在普通工业气体分类的举例里——原文:<strong>"合成气体(乙炔、氢气、二氧化碳等)"</strong>。<strong>电子级 CO₂ / 高纯 CO₂ / 干冰 0 次提及,无 CO₂ 产能、无 CO₂ 认证、无 CO₂ 募投</strong>。华特的高端在<strong>氟基电子特气</strong>:收入构成为光刻及其他混合气体 22.0%、普通工业气体 20.4%、氟碳类 15.66%、特种气体 8.16%、氢化物 7.48%、氮氧化合物 4.18%,"部分氟碳类产品、氢化物已进入 5nm 先进制程"。<strong>结论:华特是高端氟基/光刻特气龙头之一,与 CO₂ 是两条产业链——找"高端 CO₂"找它,方向就错了。证据强(年报/F10,2024/2025)。</strong></li><li><strong>广钢气体(688548)</strong>:电子大宗气体 ¥17.32 亿(占 71%)、毛利 29.97%,是电子大宗(氮/氢/氧/氩/氦)国产龙头,但 <strong>CO₂ 在其财报里完全没出现</strong>。产业链邻居不等于本人。本库《工业气体产业链深挖》已把它定位在氦/电子大宗。</li><li><strong>中船特气(688146)</strong>:NF₃/WF₆/特气,CO₂ 关联弱;本库《工业气体产业链深挖》记录其 2025 投机熔涨(PE 510x、停牌核查),估值脱离基本面。</li><li><strong>南大光电(300346)</strong>:前驱体/光刻胶/NF₃,无 CO₂ 业务。</li><li><strong>CCUS / 碳捕捉概念(华谊、中石化等)</strong>:这是<strong>"用大宗 CO₂"</strong>的逻辑,不是"做高端 CO₂"——同一化学式、两条产业链,不要混。</li><li><strong>正帆科技/雅克科技/凯立新材</strong>:正帆有特气工程能力但 CO₂ 非主线;雅克前驱体;凯立催化剂——均与本题距离远。</li></ul>
+<hr>
+<h2>四、什么情况说明这个判断错了(反方)</h2>
+<ol><li><strong>电子级 CO₂ 国产化加速</strong>:若 2026–2027 国内 fab(中芯/长存/长鑫)把电子级 CO₂ 国产化招标给凯美特或金宏并签长协,"A 股没人做实"的判断会被改写——金宏客户网络 + 凯美特国标地位就从"期权"变"现金流"。</li><li><strong>凯美特气源被切</strong>:它最大护城河是中石化系尾气长协;若中石化自营 CO₂ 或换供应商,凯美特成本结构会崩。</li><li><strong>食品级 CO₂ 价格战</strong>:若可乐/百事系引入第二供应商压价,凯美特 CO₂ 39% 毛利(它能赚钱的根)会被打掉。</li><li><strong>金宏特气板块继续下滑</strong>:若 2026 半年报泛半导体段收入/毛利继续双降,"客户网络兑现"逻辑被削弱,5N CO₂ 募投只能当纯期权。</li><li><strong>超临界 CO₂ 清洗国产化未启动</strong>:中国 fab 的超临界 CO₂ 清洗目前几乎全外资设备+气体一体化交付,A 股若切不进,"高端 CO₂"在半导体那段就永远只是想象。</li><li><strong>题目本身错位</strong>:若真正想要的是"高端电子气体龙头",答案根本不是 CO₂——而是华特(氟基)、金宏(超纯氨)、广钢(氦/电子大宗)、雅克(前驱体)、南大(NF₃)。<strong>"高端 CO₂"在 A 股是个偏小的细分。</strong></li></ol>
+<hr>
+<h2>五、下一步具体查什么</h2>
+<ol><li><strong>凯美特气</strong>:① 互动易/业绩说明会<strong>逐项追问电子级 CO₂ 2025 实际收入、2026 在手订单、半导体客户名单</strong>(把"国标制定者"变"做实者"的唯一证据);② 跟踪特种气体板块毛利率能否在 2026 转正(-169%→-40%,趋势在改善);③ 查最新 PE/PB/市值;④ 中石化系尾气长协剩余年限与续约条款。</li><li><strong>金宏气体</strong>:① 跟踪 5N 高纯 CO₂ 募投项目<strong>实际投产/达产时间</strong>;② <strong>追问"泛半导体板块下滑"是周期还是结构性</strong>(判断客户网络兑现速度的关键);③ 与中能硅业的硅烷合作进展。</li><li><strong>行业层面</strong>:① 国内 fab(中芯/长存/长鑫)电子级 CO₂ 国产化招标——改变全局的最大变量;② 超临界 CO₂ 清洗在中国 fab 的渗透率;③ 林德/法液空在华电子级 CO₂ 扩产/退出动向。</li><li><strong>气源面板</strong>:凯美特 5 基地各自原料来源、长协剩余年限——最硬但最不透明的护城河。</li></ol>
+<hr>
+<h2>主要信源</h2>
+<p><strong>强证据(交易所·巨潮口径 F10 主营构成 + 年报核心题材,2024/2025 年报)</strong>:凯美特气 002549、金宏气体 688106、杭氧股份 002430、华特气体 688268、侨源股份 301286、和远气体 002971、广钢气体 688548 各 2024/2025 年报主营构成;凯美特气年报核心题材(国标编制、可乐/百事/Cymer/GIGAPHOTON 认证、5 基地分布);金宏气体年报核心题材(IPO 募投 1000 吨 5N CO₂、半导体客户名单);华特气体年报核心题材与基本信息(全产品线无 CO₂、二氧化碳仅作普通工业气体举例)。</p>
+<p><strong>中等证据</strong>:本库《工业气体产业链深挖》(2026-06-24)对广钢/中船特气/金宏的定位。</p>
+<p><strong>需核实</strong>:① 凯美特电子级 CO₂ 实际收入与具名半导体客户;② 金宏 5N CO₂ 募投当前进度/达产;③ 各家最新收盘价/PE/PB;④ 中石化系尾气长协细节;⑤ 国内 fab 电子级 CO₂ 国产化招标公告(本轮 WebSearch 不可用,需从招投标公开网/cninfo 补);⑥ 国标《电子级二氧化碳》正式发布号与凯美特参编排序。</p>
+<blockquote>受限说明:本轮 WebSearch 工具不可用、通用网页抓取多被拒。财务与定位走交易所口径的东方财富 F10 主营构成 + 年报核心题材;招投标/互动易/环评/专利/海关数据未能直接打开,相关结论标"需核实"。</blockquote>
+<hr>
+<p><strong>一句话总结:</strong> A 股"高端 CO₂"严格意义上没有龙头。<strong>凯美特气是唯一纯标 + 唯一参编国标 + 唯一进可乐/百事 + CO₂ 毛利还在走高,但电子级自己也还在亏</strong>——它是离答案最近的公司,但要把"高端 CO₂"故事说圆,得等电子级 CO₂ 实际收入在 2026/2027 报出来。<strong>金宏算半个</strong>(客户网络实,但 CO₂ 非主线)。<strong>华特方向就错了</strong>(它是氟基特气,不碰 CO₂)。其余都是路过。</p>
+<p>*这是研究排序和证据链,不是买卖建议——决策和风险由使用者自行把握。*</p>
+<div class="related"><h3>相关分析</h3><a href="工业气体产业链深挖.html">工业气体产业链深挖 →</a><a href="广钢vs华特(地缘氦气)深挖.html">广钢气体 vs 华特气体 — 地缘/氦气对比深挖 →</a></div>
+</article>
+</body></html>
