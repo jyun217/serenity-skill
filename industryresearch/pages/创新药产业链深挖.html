@@ -1,0 +1,209 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>创新药产业链深挖</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">医药生物 · 创新药 · 研发龙头/出海/ADC/单品</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">恒瑞医药 600276</span><span class="chip">百济神州 688235</span><span class="chip">艾力斯 688578</span><span class="chip">荣昌生物 688331</span><span class="chip">科伦药业 002422</span><span class="chip">君实生物 688180</span><span class="chip">贝达药业 300558</span><span class="chip">迪哲医药 688192</span></div>
+<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：恒瑞医药</div><p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>
+<h1>创新药产业链深挖</h1>
+<blockquote>serenity-skill 产业链卡点扫描。研究日期:2026-06-29。数据 Eastmoney/腾讯一手口径(财务/估值/行情)。仅研究支持,非买卖建议。 缘起:《医药四大垂直总览》识别"创新药"为医药最深护城河垂直,单挖收口。</blockquote>
+<h2>一句话判断</h2>
+<p>创新药正从<strong>"全员烧钱"走向"分化兑现"</strong>:有重磅单品/平台商业化的真赚钱(恒瑞净 24%、<strong>艾力斯三代 EGFR 单品爆发净 42%/PE19.9</strong>、荣昌 ADC 扭亏 +89%、百济全球化首盈利),没兑现的继续重亏(君实 -8.75 亿、迪哲净 -96%、泽璟亏)。<strong>真卡点是两件事:① 研发管线深度(恒瑞=A 股创新药龙头、管线最深最广、真盈利);② 出海/全球化能力(百济=泽布替尼全球放量、中国创新药出海最成功)</strong>。和集采无关(专利期保护),核心变量是医保谈判降价 + 临床数据 + 出海。<strong>港股是创新药主战场(信达/康方/科伦博泰 license-out 频出),A 股纯创新药标的相对少但龙头质地最实(恒瑞/百济/艾力斯)。</strong></p>
+<h2>一、先排层级(按卡点稀缺度 × 兑现度)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>环节</th><th>卡点性质</th><th>代表(做实)</th><th>一句话</th></tr></thead><tbody><tr><td>1</td><td><strong>研发龙头(深管线+平台)</strong></td><td>研发能力+管线厚度</td><td><strong>恒瑞(化药龙头)、百济(全球化)</strong></td><td>最深护城河,真盈利</td></tr><tr><td>2</td><td><strong>出海/license-out(全球化)</strong></td><td>FDA 获批+BD 能力</td><td><strong>百济(自主)、康方/科伦博泰(授权 MNC)</strong></td><td>最稀缺卡点,中国药出海</td></tr><tr><td>3</td><td><strong>重磅单品商业化</strong></td><td>first/best-in-class 单品</td><td><strong>艾力斯(三代EGFR净42%)、贝达</strong></td><td>单品兑现=高弹性高利润</td></tr><tr><td>4</td><td><strong>热门技术平台(ADC/双抗/自免)</strong></td><td>平台技术卡位</td><td><strong>荣昌(ADC)、康方(双抗)、信达(PD-1+GLP-1)</strong></td><td>技术换道窗口</td></tr><tr><td>5</td><td><strong>管线投入期(未兑现)</strong></td><td>临床数据未读出</td><td>君实、迪哲、泽璟</td><td>高风险高弹性,仍重亏</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> 创新药卡点不在"供应链",在研发能力+管线+出海。第 1 层(研发龙头)恒瑞做实最深管线+真盈利;第 2 层(出海)百济做实全球化,是最稀缺卡点;第 3 层单品兑现(艾力斯)是高弹性;第 5 层(未兑现)是高风险。</p>
+<h2>二、本链头号卡点:恒瑞医药(600276)🎯</h2>
+<ul><li><strong>卡住的环节</strong>:<strong>创新药研发龙头</strong>——肿瘤(PD-1/ADC/小分子)、麻醉、造影、自免全管线,A 股研发能力最深、管线最厚、且从仿制成功转型创新。</li><li><strong>证据</strong>:FY2025 营收 <strong>316.3 亿 +13%、归母 77.11 亿 +22%、毛 86.2%、净 24.4%、ROE 14.3%</strong>——创新药里规模最大+真盈利;研发投入巨大、管线数十个在研、BD 出海(license-out)频出。</li><li><strong>排序理由</strong>:创新药的卡点是研发能力+管线厚度,恒瑞是 A 股龙头(深度+广度+真盈利),故为头号。</li><li><strong>主要风险</strong>:仿制基本盘受集采压制、创新药医保谈判降价、PE43 不低、出海(对垒 MNC)兑现待证、研发失败风险。</li></ul>
+<h2>三、另四柱</h2>
+<h3>百济神州(688235)——全球化卡点,中国创新药出海标杆</h3>
+<ul><li><strong>泽布替尼(百悦泽,BTK 抑制剂)全球放量</strong>(美国市场 head-to-head 胜对手),营收 <strong>382.2 亿 +40%、归母 14.61 亿(首次盈利)、毛 87.6%</strong>;市值 3944 亿、PE125。<strong>风险</strong>:净利率仅 3.8%(刚盈利)、PE125 高、研发投入巨大、海外竞争+地缘;但全球化能力是最稀缺卡点。</li></ul>
+<h3>艾力斯(688578)——三代 EGFR 单品爆发,净 42% 最高 + PE 最便宜</h3>
+<ul><li>三代 EGFR(伏美替尼,肺癌)单品;营收 51.9 亿 +46%、归母 <strong>21.89 亿、净 42.2%(全链最高)、毛 96.8%、ROE 35.4%、PE 仅 19.9(最便宜)</strong>。<strong>风险</strong>:<strong>单品依赖(伏美替尼一个药)</strong>、医保降价、后续管线待证;但单品兑现的极致性价比代表。</li></ul>
+<h3>荣昌生物(688331)——ADC 平台,扭亏放量</h3>
+<ul><li>ADC(维迪西妥单抗)+ 自免(泰它西普);营收 32.5 亿 <strong>+89%、归母 7.1 亿(扭亏)、毛 87.3%、净 21.8%、ROE 24.9%</strong>;PE57、PB18.9。<strong>风险</strong>:PB18.9 高、ADC 竞争激烈(科伦博泰/第一三共)、海外授权兑现;但 ADC 是热门技术平台卡点,扭亏放量。</li></ul>
+<h3>科伦药业(002422)——大输液现金牛 + ADC 出海(科伦博泰)</h3>
+<ul><li>大输液 + 原料药 + <strong>创新药(子公司科伦博泰 ADC,已 license 默沙东)</strong>;营收 185 亿 -15%、归母 17 亿、净 10%、<strong>PB 仅 2.62、PE39</strong>。<strong>风险</strong>:大输液下滑(-15%)、ADC 在科伦博泰(港股)体内;但"现金牛+ADC 出海"组合、估值低。君实(PD-1,仍亏 8.75 亿)、迪哲(净 -96%)、泽璟是管线投入期高风险标的。</li></ul>
+<h2>四、反方 / 市场没看清</h2>
+<ol><li><strong>创新药已分化,别一概而论</strong>:有重磅单品/平台兑现的真赚钱(恒瑞净 24%、艾力斯净 42%、荣昌扭亏),没兑现的继续重亏(君实/迪哲/泽璟)——"创新药"内部冰火两重天;</li><li><strong>真卡点是出海不是国内</strong>:国内医保谈判年年降价,真正的稀缺卡点是出海(百济泽布替尼在美国卖、康方/科伦博泰 license MNC)——能出海的才有定价权;</li><li><strong>单品依赖是双刃</strong>:艾力斯净 42% 极致但依赖伏美替尼一个药,后续管线是关键;</li><li><strong>港股是主战场</strong>:信达(PD-1+GLP-1)、康方(双抗依沃西)、科伦博泰(ADC)等创新药龙头在港股,A 股纯标相对少;</li><li><strong>估值分化极端</strong>:艾力斯 PE19.9(单品兑现) vs 百济 PE125(全球化溢价) vs 迪哲/泽璟亏损——按兑现度定价。</li></ol>
+<h2>五、下一步</h2>
+<ol><li><strong>恒瑞</strong>:创新药占比、出海 license-out 进展、医保谈判降价幅度、PD-1/ADC 管线读出;2. 百济泽布替尼全球销售与新品(海外是关键);3. 艾力斯伏美替尼后续适应症 + 第二管线(破单品依赖);4. 荣昌 ADC 海外授权与商业化;5. 科伦博泰 ADC 兑现(默沙东合作);6. 国产创新药出海(FDA 获批/BD 金额)是最值得跟踪的卡点信号。</li></ol>
+<hr>
+<p>*关联:《医药四大垂直总览深挖》《CRO 产业链深挖》《凯莱英深挖》(创新药研发外包配套)。研究判断,非买卖建议。数据 2026-06-29 一手口径;管线进展、医保谈判价、出海 license 金额、临床数据需年报·公告核实。港股创新药龙头(信达/康方/科伦博泰)未纳入本篇财务对比。*</p>
+<div class="related"><h3>相关分析</h3><a href="医药四大垂直总览深挖.html">医药四大垂直总览深挖(生物制品/医疗服务/化学制药/医疗器械) →</a><a href="CRO产业链深挖.html">CRO 产业链深挖 →</a><a href="凯莱英深挖.html">凯莱英 (002821 / 06821.HK) 单公司深挖 →</a></div>
+</article>
+</body></html>

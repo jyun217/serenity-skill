@@ -1,0 +1,209 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>血制品产业链深挖</title><style>
+:root{
+  --bg:#0f1217; --panel:#161b22; --panel2:#1c232c; --line:#2a323c;
+  --ink:#e6edf3; --muted:#9aa7b4; --faint:#6e7b8a;
+  --accent:#4ea1ff; --accent2:#36c39b; --warn:#e0b341;
+  --chip:#222c38; --semi:#3b82f6; --pharma:#22b07d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+header.site{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#12161c,#0f1217)}
+header.site .wrap{padding:34px 22px 26px}
+.site h1{margin:0 0 6px;font-size:26px;letter-spacing:.5px}
+.site .sub{color:var(--muted);font-size:14px;margin:0}
+.meta-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--faint);font-size:12.5px}
+.meta-row b{color:var(--ink);font-weight:600}
+
+.toolbar{position:sticky;top:0;z-index:5;background:rgba(15,18,23,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;gap:12px;align-items:center;padding:12px 22px;flex-wrap:wrap}
+.search-wrap{flex:1;min-width:200px;position:relative;display:flex}
+#search{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);
+  color:var(--ink);border-radius:9px;padding:9px 36px 9px 13px;font-size:14px;outline:none}
+#search:focus{border-color:var(--accent)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);cursor:pointer;
+  color:var(--muted);font-size:18px;line-height:1;width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;user-select:none}
+.search-clear:hover{background:var(--line);color:var(--ink)}
+.search-clear.on{display:flex}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filt{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:5px 13px;font-size:12.5px;cursor:pointer;user-select:none}
+.filt.on{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+
+section.industry{margin:34px 0 8px}
+.industry-head{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.industry-head .dot{width:11px;height:11px;border-radius:50%;background:#6e7b8a}
+.dot.半导体{background:var(--semi)} .dot.医药生物{background:var(--pharma)} .dot.化工新材料{background:#c98a3a}
+.industry-head h2{font-size:20px;margin:0}
+.industry-head .cnt{color:var(--faint);font-size:13px}
+.type-label{color:var(--faint);font-size:12.5px;text-transform:uppercase;letter-spacing:1px;
+  margin:22px 0 12px;border-left:3px solid var(--line);padding-left:10px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+  display:flex;flex-direction:column;transition:.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .badge{position:absolute;top:0;right:0;font-size:11px;padding:4px 11px;border-bottom-left-radius:10px;font-weight:600}
+.badge.产业链{background:#1d3a52;color:#8fc8ff}
+.badge.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.card h3{margin:2px 60px 8px 0;font-size:16.5px;line-height:1.4}
+.card .sub{color:var(--accent2);font-size:12.5px;margin:0 0 10px;font-weight:500}
+.card .crosstag{display:inline-block;font-size:11px;color:#8fc8ff;background:#13202e;
+  border:1px solid #25425c;border-radius:6px;padding:2px 8px;margin:0 0 9px}
+.card .summary{color:var(--muted);font-size:13.5px;margin:0 0 14px;flex:1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--faint);
+  font-size:11.5px;border-radius:6px;padding:3px 8px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);padding-top:11px;font-size:12.5px}
+.card .foot .date{color:var(--faint)}
+.card .foot a{font-weight:600}
+
+footer.site{border-top:1px solid var(--line);margin-top:46px;color:var(--faint);font-size:12.5px}
+footer.site .wrap{padding:24px 22px 40px}
+.disclaimer{color:var(--warn);opacity:.85}
+.empty{color:var(--faint);text-align:center;padding:40px;display:none}
+
+/* ---------- 详情页 ---------- */
+.doc{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+.backbar{position:sticky;top:0;background:rgba(15,18,23,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);z-index:5}
+.backbar .wrap{max-width:880px;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;font-size:13.5px}
+.crumb{color:var(--faint)}
+.doc h1{font-size:25px;line-height:1.35;margin:18px 0 6px;border:none}
+.doc h2{font-size:20px;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.doc h3{font-size:16.5px;margin:24px 0 8px;color:#cfe3ff}
+.doc h4{font-size:14.5px;margin:18px 0 6px;color:var(--muted)}
+.doc p{margin:11px 0}
+.doc strong{color:#fff}
+.doc a{word-break:break-all}
+.doc ul,.doc ol{padding-left:24px;margin:10px 0}
+.doc li{margin:5px 0}
+.doc blockquote{margin:16px 0;padding:10px 16px;background:var(--panel);
+  border-left:3px solid var(--accent);border-radius:6px;color:var(--muted);font-size:13.5px}
+.doc hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+.doc code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;font-size:12.5px;font-family:"SF Mono",Menlo,Consolas,monospace;color:#e8b87f}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel2);color:#cfe3ff;font-weight:600;white-space:nowrap}
+.doc tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 6px}
+.related{margin-top:40px;border-top:1px solid var(--line);padding-top:18px}
+.related h3{margin:0 0 12px}
+.related a{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:8px 13px;margin:0 8px 8px 0;font-size:13px}
+
+/* ---------- 真卡点信号（多源指向） ---------- */
+.signal-banner{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #5a4a1e;
+  border-radius:14px;padding:17px 19px;margin:24px 0 6px}
+.signal-banner .lead{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffd970;font-weight:700;margin-bottom:6px}
+.signal-banner .desc{color:var(--muted);font-size:12.5px;margin:0 0 13px;line-height:1.6}
+.signal-list{display:flex;gap:11px;flex-wrap:wrap}
+.signal-group{margin-top:13px}
+.signal-group:first-of-type{margin-top:2px}
+.sg-head{font-size:12px;color:#cdb96e;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.4px;border-left:3px solid #6a5722;padding-left:9px}
+.sg-head .sg-cnt{background:#2e2714;color:#ffd970;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:600}
+.signal-item{display:flex;align-items:center;gap:10px;background:#221d10;border:1px solid #6a5722;
+  border-radius:11px;padding:9px 14px;font-size:13.5px}
+.signal-item .nm{color:#ffe39a;font-weight:700}
+.signal-item .hit{color:#cdb96e;font-size:11.5px;background:#2e2714;border-radius:999px;padding:2px 10px}
+.card.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 26px -6px rgba(201,159,46,.55)}
+.pill-signal{display:inline-flex;align-items:center;gap:5px;background:#3a3115;color:#ffd970;
+  border:1px solid #7a6526;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.hot{background:#352c12;border-color:#7a6526;color:#ffd970;font-weight:600}
+.signal-callout{background:linear-gradient(180deg,#1d1a0e,#14130c);border:1px solid #6a5722;
+  border-radius:12px;padding:15px 18px;margin:8px 0 20px}
+.signal-callout .lead{color:#ffd970;font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.signal-callout .desc{color:var(--muted);font-size:13px;margin:0 0 10px;line-height:1.6}
+.signal-callout a{display:inline-block;margin:0 10px 6px 0;font-size:13px;background:#221d10;
+  border:1px solid #6a5722;border-radius:8px;padding:6px 12px}
+
+/* ---------- 层内卡点(单链头号卡点,青色,区别于金色多源指向) ---------- */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg-gold{color:#ffd970;font-weight:600}.lg-teal{color:#5fe0cf;font-weight:600}
+.card .keypick{display:inline-block;font-size:12px;color:#ffd970;background:#2a2410;
+  border:1px solid #6a5722;border-radius:7px;padding:5px 10px;margin:0 0 10px}
+.pill-pick{display:inline-flex;align-items:center;gap:5px;background:#10302e;color:#5fe0cf;
+  border:1px solid #1f6f63;border-radius:999px;font-size:11.5px;font-weight:700;padding:3px 11px;margin:0 0 9px}
+.chip.pick{background:#10302e;border-color:#1f6f63;color:#5fe0cf;font-weight:600}
+.pick-callout{background:linear-gradient(180deg,#0f2624,#0d1614);border:1px solid #1f6f63;
+  border-radius:12px;padding:13px 17px;margin:8px 0 18px;color:#bfeee6;font-size:13px;line-height:1.6}
+.pick-callout b{color:#5fe0cf}
+.pick-callout a{color:#5fe0cf;margin-left:8px}
+.trow.pick{border-color:#1f6f63;box-shadow:0 0 0 1px #1f6f63}
+.trow.pick .tname{color:#5fe0cf}
+.trow.pick .tcode{background:#10302e;border-color:#1f6f63;color:#5fe0cf}
+
+/* ---------- 视图切换 + 按标的反查 ---------- */
+.viewnav{display:flex;gap:8px;margin-left:auto}
+.viewnav a{background:var(--chip);border:1px solid var(--line);color:var(--muted);
+  border-radius:999px;padding:6px 14px;font-size:12.5px}
+.viewnav a:hover{text-decoration:none;border-color:var(--accent)}
+.viewnav a.cur{background:var(--accent);border-color:var(--accent);color:#06101c;font-weight:600}
+.trow{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:13px}
+.trow.flagged{border-color:#7a6526;box-shadow:0 0 0 1px #7a6526,0 0 22px -8px rgba(201,159,46,.5)}
+.thead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.tname{font-size:16px;font-weight:700}
+.trow.flagged .tname{color:#ffd970}
+.tcode{background:var(--chip);border:1px solid var(--line);color:var(--faint);font-size:11.5px;border-radius:6px;padding:2px 8px}
+.trow.flagged .tcode{background:#352c12;border-color:#7a6526;color:#ffd970}
+.tcount{margin-left:auto;color:var(--faint);font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+.trow.flagged .tcount{color:#ffd970;border-color:#7a6526;background:#2e2714}
+.tlist{display:flex;flex-direction:column;gap:7px}
+.tlist a{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink);
+  padding:8px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tlist a:hover{border-color:var(--accent);text-decoration:none}
+.tlist .ttype{font-size:11px;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.ttype.产业链{background:#1d3a52;color:#8fc8ff}
+.ttype.单公司深挖{background:#1f3d33;color:#7fe0bf}
+.tlist .tttl{flex:1}
+.tlist .tind{color:var(--faint);font-size:11.5px;white-space:nowrap}
+.tlist .tdate{color:var(--faint);font-size:11.5px;white-space:nowrap}
+</style></head><body>
+<div class="backbar"><div class="wrap">
+<a href="../index.html">← 返回研究库</a>
+<span class="crumb">医药生物 · 血制品 · 浆站资源/采浆量/整合</span>
+</div></div>
+<article class="doc">
+<div class="tags"><span class="chip hot">天坛生物 600161</span><span class="chip">上海莱士 002252</span><span class="chip">华兰生物 002007</span><span class="chip">派林生物 000403</span><span class="chip">博雅生物 300294</span><span class="chip">卫光生物 002880</span></div>
+<div class="signal-callout"><div class="lead">🎯 本篇头号卡点：天坛生物</div><p class="desc">该条产业链识别出的最关键卡点标的(1 颗 🎯 = 层内卡点)。若多条相互独立的产业链都把同一标的列为头号卡点，它会升级为“多源指向”(多颗 🎯)。</p></div>
+<h1>血制品产业链深挖</h1>
+<blockquote>serenity-skill 产业链卡点扫描。研究日期:2026-06-29。数据 Eastmoney/腾讯一手口径(财务/估值/行情)。仅研究支持,非买卖建议。 缘起:《医药四大垂直总览》识别"血制品浆站"为不可复制的资源型卡点,单挖收口(医药四大垂直真卡点链最后一块)。</blockquote>
+<h2>一句话判断</h2>
+<p>血制品的卡点极其纯粹:<strong>浆站牌照——2001 年起国家停批新血制品企业、单采血浆站严格管制、不可新增/不可复制,谁掌握最多浆站与采浆量,谁就卡住源头</strong>。这是医药里少见的"行政牌照型资源卡点"(类比工业气体的长协气源、稀土的开采配额)。<strong>天坛生物是浆站数量+采浆量全国第一(中生/国药系)、品种最全的资源卡点龙头</strong>。行业当前两条主线:<strong>① 国资/产业资本整合潮</strong>(天坛=国药、上海莱士=海尔、派林=陕煤、博雅=华润——龙头靠并购抢浆站);<strong>② FY2025 价格周期承压</strong>(白蛋白/静丙降价+需求疲软+采浆成本升,全行业利润下滑:天坛 -30%、华兰 -14%、派林 -44%、莱士 -28%)。但都仍盈利(净 16-24%)、估值低(多数 PB1-2、上海莱士破净 PB0.91)。</p>
+<h2>一、先排层级(按卡点稀缺度 × 资源掌控)</h2>
+<div class="table-wrap"><table><thead><tr><th>排序</th><th>环节</th><th>卡点性质</th><th>代表</th><th>一句话</th></tr></thead><tbody><tr><td>1</td><td><strong>浆站资源(采浆量)</strong></td><td>行政牌照,不可复制</td><td><strong>天坛(全国第一)、莱士、华兰、派林</strong></td><td>源头卡点,停批 20+ 年</td></tr><tr><td>2</td><td><strong>血制品生产(分离提纯)</strong></td><td>技术+批文(品种数)</td><td>天坛(品种最全)、莱士</td><td>一份血浆做出越多品种=越赚钱</td></tr><tr><td>3</td><td><strong>高端品种(凝血因子/特免)</strong></td><td>技术壁垒高、高毛利</td><td>华兰、天坛</td><td>静丙/凝血因子是利润核心</td></tr><tr><td>4</td><td><strong>疫苗等协同</strong></td><td>—</td><td>华兰(流感疫苗)</td><td>双轮,平滑周期</td></tr></tbody></table></div>
+<p><strong>核心判断:</strong> 浆站(第 1 层)是血制品唯一真卡点——行政停批使浆站成为不可复制资源,采浆量决定天花板。生产端(第 2 层)拼"吨浆产出品种数"(品种越全越赚)。谁浆站多+品种全,谁卡住价值——天坛两者皆第一。</p>
+<h2>二、本链头号卡点:天坛生物(600161)🎯</h2>
+<ul><li><strong>卡住的环节</strong>:<strong>浆站资源 + 采浆量全国第一</strong>(中生/国药集团旗下),单采血浆站数量、采浆量、品种数均为行业第一,是血制品资源卡点龙头。</li><li><strong>证据</strong>:FY2025 营收 <strong>61.7 亿 +2%、归母 10.91 亿、净 24.2%、毛 43.9%、ROE 9.5%</strong>;PE24、市值 234 亿、PB1.97——浆站+品种双第一,国药背景便于浆站审批/整合。</li><li><strong>排序理由</strong>:血制品卡点=浆站资源,天坛浆站数与采浆量全国第一、品种最全,故为头号。</li><li><strong>主要风险</strong>:<strong>FY25 归母 -30%</strong>(白蛋白/静丙价格承压+需求疲软+采浆成本上升);血制品价格周期下行、采浆量增速放缓、ROE 仅 9.5%(重资产)。</li></ul>
+<h2>三、另四柱</h2>
+<h3>上海莱士(002252)——营收最大,海尔入主,破净</h3>
+<ul><li>血制品龙头(海尔集团入主),营收 <strong>73.5 亿(全行业最大)、归母 15.77 亿、净 21.5%、PB 仅 0.91(破净)、PE22</strong>。<strong>风险</strong>:<strong>毛利最低(37.4%,有进口白蛋白代理拉低)</strong>、FY25 利润 -28%、ROE 4.9%;但营收规模最大+海尔渠道协同+破净估值。</li></ul>
+<h3>华兰生物(002007)——血制品 + 流感疫苗双轮,毛利最高</h3>
+<ul><li>血制品 + 流感疫苗(子公司华兰疫苗);营收 46 亿 +5%、归母 9.4 亿、<strong>毛 57.5%(全链最高,疫苗拉高)、净 21.8%</strong>;PE27、PB2.15。<strong>风险</strong>:疫苗(流感)需求波动、血制品价格承压(利润 -14%);但双轮平滑周期、品种结构好。</li></ul>
+<h3>派林生物(000403)——陕煤入主,整合标的</h3>
+<ul><li>血制品(陕西能源/胜帮入主);营收 26.3 亿 -1%、归母 4.19 亿(<strong>-44%</strong>)、净 15.9%、PB1.07、PE25。<strong>风险</strong>:利润 -44% 承压、规模偏小、整合后协同待证;是产业资本整合的标的之一。</li></ul>
+<h3>博雅生物(300294)——华润入主,行业整合主角</h3>
+<ul><li>血制品(华润医药入主);营收 20.6 亿 +19%、<strong>归母 1.13 亿(-72%)、净仅 5.5%、PE 虚高</strong>、PB1.0。<strong>风险</strong>:<strong>利润崩 -72%</strong>(剥离非血制品+计提)、净利率低;但华润入主后整合预期(华润系浆站注入)是看点。卫光生物(002880,小而稳,净 19.4%/PE19.7)同属小型血制品。</li></ul>
+<h2>四、反方 / 市场没看清</h2>
+<ol><li><strong>卡点真,但当下价格周期承压</strong>:浆站资源卡点不可复制是长逻辑,但 FY2025 全行业利润下滑(白蛋白/静丙降价+需求弱)——资源卡点≠当下高增长;</li><li><strong>整合潮是核心变量</strong>:国资/产业资本入主(天坛国药、莱士海尔、派林陕煤、博雅华润)——龙头靠并购抢浆站,整合后浆站/采浆量集中度提升是最大看点;</li><li><strong>"吨浆产出"决定盈利</strong>:浆站是源头,但一份血浆做出多少品种(白蛋白+静丙+凝血因子)决定赚多少——品种数(天坛/华兰最全)是第二层卡点;</li><li><strong>估值已低但 ROE 不高</strong>:多数 PB1-2、莱士破净,但 ROE 仅 5-10%(重资产+周期),低估值反映价格承压;</li><li><strong>静丙是关键弹性</strong>:静注人免疫球蛋白(静丙)需求(免疫/重症)若放量,是血制品最大利润弹性。</li></ol>
+<h2>五、下一步</h2>
+<ol><li><strong>天坛</strong>:采浆量增速、新浆站获批(国药背景优势)、白蛋白/静丙价格拐点;2. 上海莱士海尔协同与进口白蛋白占比;3. 华兰流感疫苗+血制品双轮、静丙放量;4. 派林/博雅整合后浆站注入与协同;5. 血制品价格(白蛋白/静丙批签发与招标价)——决定全行业利润弹性;6. 浆站审批政策(是否放松)是终极变量。</li></ol>
+<hr>
+<p>*关联:《医药四大垂直总览深挖》《工业气体产业链深挖》(同为资源/牌照型卡点)。研究判断,非买卖建议。数据 2026-06-29 一手口径;采浆量、浆站数、血制品价格、整合进展需年报·批签发·公告核实。*</p>
+<div class="related"><h3>相关分析</h3><a href="医药四大垂直总览深挖.html">医药四大垂直总览深挖(生物制品/医疗服务/化学制药/医疗器械) →</a><a href="工业气体产业链深挖.html">工业气体产业链深挖 →</a></div>
+</article>
+</body></html>
